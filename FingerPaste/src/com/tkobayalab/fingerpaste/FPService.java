@@ -15,11 +15,6 @@ public class FPService extends Service {
 	}
 
 	@Override
-	public void onCreate() {
-		super.onCreate();
-	}
-
-	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		view = new DetectView( this );
 		
