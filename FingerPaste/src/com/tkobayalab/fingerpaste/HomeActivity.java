@@ -2,6 +2,7 @@ package com.tkobayalab.fingerpaste;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 
 public class HomeActivity extends Activity {
@@ -10,6 +11,7 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		startService( new Intent( getBaseContext(), FPService.class ) );
 	}
 
 	@Override
