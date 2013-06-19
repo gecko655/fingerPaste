@@ -8,6 +8,7 @@ import android.view.Menu;
 public abstract class AbstractGestureInputActivity extends Activity {
 	
 	//‚Ù‚°‚Ò‚æ
+	//hogepiyo
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
