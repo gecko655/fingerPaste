@@ -6,6 +6,8 @@ import android.gesture.Gesture;
 import android.view.Menu;
 
 public abstract class AbstractGestureInputActivity extends Activity {
+	
+	//‚Ù‚°‚Ò‚æ
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
