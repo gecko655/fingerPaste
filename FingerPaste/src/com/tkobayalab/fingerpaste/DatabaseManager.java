@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.BitSet;
 import java.util.Date;
+import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,8 +14,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.gesture.Gesture;
 import android.gesture.GestureStore;
+import android.gesture.Prediction;
 import android.graphics.Bitmap;
 import android.util.Log;
+
 
 public class DatabaseManager {
 	
@@ -71,11 +74,37 @@ public class DatabaseManager {
 	}
 	
 	public String getText(int id){
-		return null;
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		String sql = "select text from textdb where _id =" + id + ";";
+		Cursor c = db.rawQuery(sql, null);
+		
+        int indexText  = c.getColumnIndex("text");
+        String text = "";
+        while(c.moveToNext()){
+        	text  = c.getString(indexText);
+        }
+		return text;
+	}
+	
+	// not put in class diagram
+	public long getUpdateTime(int id){
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		String sql = "select updatetime from textdb where _id =" + id + ";";
+		Cursor c = db.rawQuery(sql, null);
+		
+        int indexText  = c.getColumnIndex("text");
+        String text  = c.getString(indexText);
+		
+		return Long.parseLong(text);
 	}
 	
 	public int getIdOfMaxScore(Gesture gesture){
-		return 0;
+		ArrayList<Prediction> predictions = gestures.recognize(gesture);
+		
+		if(predictions.size() > 0){
+			return Integer.parseInt(predictions.get(0).name);
+		}
+		return -1;
 	}
 	
 	public boolean hasSimilarItem(Gesture gesture){
@@ -103,8 +132,12 @@ public class DatabaseManager {
 		return false;
 	}
 	
+
 	public Bitmap getGestureImage(int id){
-		return null;
+		ArrayList<Gesture> g = gestures.getGestures("" + id);
+		
+		if(g.size() == 0) return null;
+		return g.get(0).toBitmap(100, 100, 8, 0xFFFFFF00);
 	}
 	
 	public int[] getElementsId(){
