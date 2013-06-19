@@ -4,6 +4,8 @@ import android.content.Context;
 import android.gesture.Gesture;
 import android.graphics.Bitmap;
 
+
+// git test
 public class DatabaseManager {
 	
 	public DatabaseManager(Context context){
