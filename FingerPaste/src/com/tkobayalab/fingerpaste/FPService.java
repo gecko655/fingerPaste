@@ -36,8 +36,8 @@ public class FPService extends Service {
 	}
 	
 	public void onSwipe() {
-		// FLAG_ACTIVITY_NEW_TASK‚ÍƒT[ƒrƒX‚©‚çƒAƒNƒeƒBƒrƒeƒB‚ğŒÄ‚Ño‚·‚Æ‚«‚É•K‚¸•K—v
-		// FLAG_ACTIVITY_NO_ANIMATION‚Í‘JˆÚ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ª‚¤‚´‚¢‚©‚ç•K—v
+		// FLAG_ACTIVITY_NEW_TASKã¯ã‚µãƒ¼ãƒ“ã‚¹ã‹ã‚‰ã‚¢ã‚¯ãƒ†ã‚£ãƒ“ãƒ†ã‚£ã‚’å‘¼ã³å‡ºã™ã¨ãã«å¿…ãšå¿…è¦
+		// FLAG_ACTIVITY_NO_ANIMATIONã¯é·ç§»ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒã†ã–ã„ã‹ã‚‰å¿…è¦
 		Intent intent = new Intent( this, GestureInputAndTransitionActivity.class );
 		intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION  );
 		startActivity( intent );

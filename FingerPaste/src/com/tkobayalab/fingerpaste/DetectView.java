@@ -142,7 +142,7 @@ public class DetectView extends View implements View.OnTouchListener {
 	}
 	
 	private int getGravity() {
-		// TODO: Preference‚É‘Î‰‚³‚¹‚é
+		// TODO: Preferenceã«å¯¾å¿œã•ã›ã‚‹
 		switch( 3 ) {
 		case 0:
 			return Gravity.LEFT | Gravity.TOP;
