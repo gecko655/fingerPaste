@@ -9,7 +9,6 @@ public class GestureInputAndTransitionActivity extends AbstractGestureInputActiv
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_gesture_input_and_transition);
 	}
 
 	@Override
@@ -21,8 +20,8 @@ public class GestureInputAndTransitionActivity extends AbstractGestureInputActiv
 
 	@Override
 	void onGestureInput(Gesture gesture) {
-		// TODO Auto-generated method stub
-		
+		GestureInputAndTransitionManager gITManager = new GestureInputAndTransitionManager(this);
+		gITManager.recognize(gesture);
 	}
 
 }

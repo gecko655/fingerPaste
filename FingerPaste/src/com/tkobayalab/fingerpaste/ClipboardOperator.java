@@ -6,7 +6,7 @@ public class ClipboardOperator {
 	public ClipboardOperator(Context context){
 	}
 
-	public String gesText(){
+	public String getText(){
 		return null;
 	}
 	

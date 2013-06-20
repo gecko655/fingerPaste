@@ -41,6 +41,13 @@ public class AddActivity extends Activity implements OnCheckedChangeListener, On
 		button2.setOnClickListener(this);
 	
 		addManager = new AddManager(this);
+		Intent intent = getIntent();
+		if(intent!=null){
+			String text = (String) intent.getCharSequenceExtra("text");
+			if(text != null){
+				addManager.fillForm(text);
+			}
+		}
 
 	}
 

@@ -51,4 +51,8 @@ public class AddManager {
 		addActivity.gesture=null;
 	}
 
+	public void fillForm(String text) {
+		addActivity.editText.setText(text);
+	}
+
 }
