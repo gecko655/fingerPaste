@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.BitSet;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Set;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,6 +26,10 @@ public class DatabaseManager {
 	private DatabaseOpenHelper dbHelper;
 	
 	final private String pathToDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
+	final int alphaID = -999;
+	final int betaID = -888;
+	final int gammaID = -777;
+	
 	
 	public DatabaseManager(Context context){
 		dbHelper = new DatabaseOpenHelper(context);
@@ -34,9 +39,26 @@ public class DatabaseManager {
 	}
 
 	public void delete(int id){
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		if(id == alphaID || id == betaID || id == gammaID) return;
+		db.delete("textdb", "_id =" + id, null);
+		gestures.removeEntry("" + id);
+		saveGestures();
 	}
 	
 	public void deleteAllItem(){
+		int[] typeOfItems = getElementsId();
+		
+		for(int i = 0; i < 100; i++){
+			if(typeOfItems[i] == 1){
+				delete(i);
+			} else if(typeOfItems[i] == 2){
+				delete(i);
+				gestures.removeEntry("" + i);
+			}
+		}
+		saveGestures();
 	}
 	
 	public void add(String text, Gesture gesture){
@@ -56,7 +78,7 @@ public class DatabaseManager {
 		} catch (IOException e){
 			Log.d("myTest", "save error");
 		}
-        return;
+        saveGestures();
 	}
 	
 	public void add(String text){
@@ -70,7 +92,6 @@ public class DatabaseManager {
         val.put("updatetime", date.getTime());
         
         db.insert("textdb", null, val);
-        return;
 	}
 	
 	public String getText(int id){
@@ -112,23 +133,35 @@ public class DatabaseManager {
 	}
 	
 	public void changeAlpha(Gesture gesture){
+		gestures.removeEntry("" + alphaID);
+		gestures.addGesture("" + alphaID, gesture);
+		saveGestures();
 	}
 	
 	public void changeBeta(Gesture gesture){
+		gestures.removeEntry("" + betaID);
+		gestures.addGesture("" + betaID, gesture);
+		saveGestures();
 	}
 	
 	public void changeGamma(Gesture gesture){
+		gestures.removeEntry("" + gammaID);
+		gestures.addGesture("" + gammaID, gesture);
+		saveGestures();
 	}
 	
 	public boolean isAlpha(int id){
+		if(id == alphaID) return true;
 		return false;
 	}
 	
 	public boolean isBeta(int id){
+		if(id == betaID) return true;
 		return false;
 	}
 	
 	public boolean isGamma(int id){
+		if(id == gammaID) return true;
 		return false;
 	}
 	
@@ -141,7 +174,37 @@ public class DatabaseManager {
 	}
 	
 	public int[] getElementsId(){
-		return null;
+		int[] typeOfItems = new int[100];
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+    	Cursor cursor = null;
+    	try{
+    		cursor = db.query("textdb", 
+    				new String[]{"_id", "text", "updatetime"}, 
+    				"_id >= 0", null, 
+    				null, null, null );
+
+    		int indexId = cursor.getColumnIndex("_id");
+
+            while(cursor.moveToNext()){
+                int id = cursor.getInt(indexId);
+                typeOfItems[id]++;  // when text of this id exists 
+            }
+    	}
+    	finally{
+    		if( cursor != null ){
+    			cursor.close();
+    		}
+    	}
+		
+    	String[] gestureid = (String[])gestures.getGestureEntries().toArray();
+    	for(int i = 0; i < gestureid.length; i++){
+    		if(Integer.parseInt(gestureid[i]) == alphaID) continue;
+    		if(Integer.parseInt(gestureid[i]) == betaID) continue;
+    		if(Integer.parseInt(gestureid[i]) == gammaID) continue;
+    		typeOfItems[Integer.parseInt(gestureid[i])]++; // when gesture of this id exists
+    	}
+		
+		return typeOfItems;
 	}
 	
 	
@@ -176,8 +239,8 @@ public class DatabaseManager {
     	Cursor cursor = null;
     	try{
     		cursor = db.query("textdb", 
-    				new String[]{ "_id", "text", "updatetime"}, 
-    				null, null, 
+    				new String[]{"_id", "text", "updatetime"}, 
+    				"_id >= 0", null, 
     				null, null, null );
 
     		return getFreeId(cursor);
