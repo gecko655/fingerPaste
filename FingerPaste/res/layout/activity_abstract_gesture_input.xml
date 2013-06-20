@@ -6,11 +6,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AbstractGestureInputActivity" >
+    tools:context=".GestureInputActivity" 
+    android:background="#000000">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/gestureInputViewHeader" />
+
+    <android.gesture.GestureOverlayView
+        android:id="@+id/gestureOverlayView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+	    android:gestureStrokeType="single"
+	    android:eventsInterceptionEnabled="true"
+	    android:orientation="vertical">
+    </android.gesture.GestureOverlayView>
 
 </RelativeLayout>
