@@ -40,6 +40,9 @@ public class EditManager {
 	}
 	
 	public void fillForm(int id){
+		DatabaseManager dbManager = new DatabaseManager(editActivity);
+		editActivity.editText.setText(dbManager.getText(id));
+		editActivity.imageButton.setImageBitmap(dbManager.getGestureImage(id));
 	}
 
 	public void receiveGesture(Gesture gesture) {
@@ -52,6 +55,10 @@ public class EditManager {
 		ImageView imageView=editActivity.imageButton;
 		imageView.setImageResource(android.R.drawable.alert_light_frame);
 		editActivity.gesture=null;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

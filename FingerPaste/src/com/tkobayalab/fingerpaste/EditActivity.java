@@ -41,6 +41,13 @@ public class EditActivity extends Activity implements OnCheckedChangeListener, O
 		button2.setOnClickListener(this);
 	
 		editManager = new EditManager(this);
+		Intent intent = getIntent();
+		if(intent != null){
+			int id = intent.getIntExtra("ID", -1);
+			if(id != -1){
+				editManager.setId(id);
+			}
+		}
 
 	}
 
