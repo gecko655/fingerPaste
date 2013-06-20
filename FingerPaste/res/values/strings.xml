@@ -27,4 +27,8 @@
     <string name="cancel">Cancel</string>
     <!-- For AddActivity End-->
     
+    <!-- For EditActivity -->
+    <string name="editHeader">編集画面</string>
+    <!-- For EditActivity End-->
+    
 </resources>

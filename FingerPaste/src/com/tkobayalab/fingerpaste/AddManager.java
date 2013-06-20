@@ -19,6 +19,7 @@ public class AddManager {
 		}else{
 			DatabaseManager dbManager = new DatabaseManager(addActivity);
 			dbManager.add(text, gesture);
+			closeAddActivity();
 		}
 		//Toast.makeText(addActivity, "addItem() called: "+text, Toast.LENGTH_LONG).show();
 	}
@@ -26,6 +27,7 @@ public class AddManager {
 	public void addItem(String text){
 		DatabaseManager dbManager = new DatabaseManager(addActivity);
 		dbManager.add(text);
+		closeAddActivity();
 		//Toast.makeText(addActivity, "addItem() called: "+text, Toast.LENGTH_LONG).show();
 	}
 
