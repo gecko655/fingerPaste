@@ -10,6 +10,8 @@
     <string name="title_activity_abstract_gesture_input">AbstractGestureInputActivity</string>
     <string name="title_activity_gesture_input_and_return_intent">GestureInputAndReturnIntentActivity</string>
     <string name="title_activity_gesture_input_and_transition">GestureInputAndTransitionActivity</string>
+
+    <!-- For HomeActivity -->
     <string name="action_add">追加</string>
     <string name="action_edit">編集</string>
     <string name="action_delete">削除</string>
@@ -18,5 +20,25 @@
     <string name="action_sort">ソート</string>
     <string name="action_filter">表示切り替え</string>
     <string name="action_settings">設定</string>
+    <!-- For HomeActivity End-->
+
+    <!-- For GestureActivity -->
+    <string name="gestureInputViewHeader">ジェスチャーを入力してね！！</string>
+    <string name="nearest">最も近いジェスチャーはこれ↓↓↓</string>
+    <!-- For GestureActivity End-->
+    
+    <!-- For AddActivity -->
+    <string name="addHeader">追加画面</string>
+    <string name="text">文字列</string>
+    <string name="gesture">ジェスチャー</string>
+    <string name="gestureOn">ジェスチャーあり</string>
+    <string name="gestureOff">ジェスチャーなし</string>
+    <string name="OK">OK</string>
+    <string name="cancel">Cancel</string>
+    <!-- For AddActivity End-->
+    
+    <!-- For EditActivity -->
+    <string name="editHeader">編集画面</string>
+    <!-- For EditActivity End-->
     
 </resources>
