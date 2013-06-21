@@ -1,12 +1,9 @@
 package com.tkobayalab.fingerpaste;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.BitSet;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Set;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +11,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.gesture.Gesture;
-import android.gesture.GestureStore;
 import android.gesture.Prediction;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -22,7 +18,6 @@ import android.util.Log;
 
 public class DatabaseManager {
 	
-	private GestureStore gestures;
 	private DatabaseOpenHelper dbHelper;
 	
 	final private String pathToDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
@@ -33,9 +28,6 @@ public class DatabaseManager {
 	
 	public DatabaseManager(Context context){
 		dbHelper = new DatabaseOpenHelper(context);
-		gestures = new GestureStore();
-		
-		loadGestures();
 	}
 
 	public void delete(int id){
@@ -43,8 +35,7 @@ public class DatabaseManager {
 		
 		if(id == alphaID || id == betaID || id == gammaID) return;
 		db.delete("textdb", "_id =" + id, null);
-		gestures.removeEntry("" + id);
-		saveGestures();
+		GestureLibraryManager.deleteGesture("" + id);
 	}
 	
 	public void deleteAllItem(){
@@ -55,30 +46,24 @@ public class DatabaseManager {
 				delete(i);
 			} else if(typeOfItems[i] == 2){
 				delete(i);
-				gestures.removeEntry("" + i);
+				GestureLibraryManager.deleteGesture("" + i);
 			}
 		}
-		saveGestures();
 	}
 	
 	public void add(String text, Gesture gesture){
 		int id = getNextId();
 		if(id == -1) return;
-		try{
-			Date date = new Date();
-			SQLiteDatabase db = dbHelper.getWritableDatabase();
-			ContentValues val = new ContentValues();
-			val.put("_id", id);
-			val.put("text" , text);
-			val.put("updatetime", date.getTime());
-        
-			db.insert("textdb", null, val);
-			gestures.addGesture("" + id, gesture);
-			gestures.save(new FileOutputStream(pathToDB));
-		} catch (IOException e){
-			Log.d("myTest", "save error");
-		}
-        saveGestures();
+		
+		Date date = new Date();
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		ContentValues val = new ContentValues();
+		val.put("_id", id);
+		val.put("text" , text);
+		val.put("updatetime", date.getTime());
+        	
+		db.insert("textdb", null, val);
+		GestureLibraryManager.addGesture("" + id, gesture);
 	}
 	
 	public void add(String text){
@@ -120,7 +105,8 @@ public class DatabaseManager {
 	}
 	
 	public int getIdOfMaxScore(Gesture gesture){
-		ArrayList<Prediction> predictions = gestures.recognize(gesture);
+		
+		ArrayList<Prediction> predictions = GestureLibraryManager.getPredictions(gesture);
 		
 		if(predictions.size() > 0){
 			return Integer.parseInt(predictions.get(0).name);
@@ -129,25 +115,21 @@ public class DatabaseManager {
 	}
 	
 	public boolean hasSimilarItem(Gesture gesture){
+		
 		return false;
 	}
 	
 	public void changeAlpha(Gesture gesture){
-		gestures.removeEntry("" + alphaID);
-		gestures.addGesture("" + alphaID, gesture);
-		saveGestures();
+		GestureLibraryManager.changeGesture("" + alphaID, gesture);
+		
 	}
 	
 	public void changeBeta(Gesture gesture){
-		gestures.removeEntry("" + betaID);
-		gestures.addGesture("" + betaID, gesture);
-		saveGestures();
+		GestureLibraryManager.changeGesture("" + betaID, gesture);
 	}
 	
 	public void changeGamma(Gesture gesture){
-		gestures.removeEntry("" + gammaID);
-		gestures.addGesture("" + gammaID, gesture);
-		saveGestures();
+		GestureLibraryManager.changeGesture("" + gammaID, gesture);
 	}
 	
 	public boolean isAlpha(int id){
@@ -167,7 +149,7 @@ public class DatabaseManager {
 	
 
 	public Bitmap getGestureImage(int id){
-		ArrayList<Gesture> g = gestures.getGestures("" + id);
+		ArrayList<Gesture> g = GestureLibraryManager.getGestures("" + id);
 		
 		if(g.size() == 0) return null;
 		return g.get(0).toBitmap(100, 100, 8, 0xFFFFFF00);
@@ -196,7 +178,7 @@ public class DatabaseManager {
     		}
     	}
 		
-    	String[] gestureid = (String[])gestures.getGestureEntries().toArray();
+    	String[] gestureid = GestureLibraryManager.getGestureEntrys();
     	for(int i = 0; i < gestureid.length; i++){
     		if(Integer.parseInt(gestureid[i]) == alphaID) continue;
     		if(Integer.parseInt(gestureid[i]) == betaID) continue;
@@ -208,30 +190,6 @@ public class DatabaseManager {
 	}
 	
 	
-	// not put in class diagram
-	private boolean saveGestures(){
-    	try{
-    		gestures.save(new FileOutputStream(pathToDB));
-    	} catch (IOException e){
-    		Log.d("myTest", "save error");
-    		return false;
-    	}
-    	
-    	return true;
-    }
-    
-	
-	// not put in class diagram
-    private boolean loadGestures(){
-    	try{
-    		gestures.load(new FileInputStream(pathToDB));
-    	} catch (IOException e){
-    		Log.d("myTest", "load error");
-    		return false;
-    	}
-    	
-    	return true;
-    }
 	
     // not put in class diagram
     private int getNextId(){
