@@ -49,15 +49,17 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 		items.clear();
 		
     	int[] ids = dm.getElementsId();
-    	for( int id : ids ) {
-    		Bitmap img = dm.getGestureImage( id );
-    		if( img != null ) {
-    			img = Bitmap.createScaledBitmap( img, 60, 60, false );
-    		}
-    		String text = dm.getText( id );
-    		// TODO: Preferenceの「表示切替」を見てaddするかそうでないかを決める
-    		// TODO: Dateの実装
-    		add( new Item( id, text, img ) );
+    	if( ids != null ) {
+	    	for( int id : ids ) {
+	    		Bitmap img = dm.getGestureImage( id );
+	    		if( img != null ) {
+	    			img = Bitmap.createScaledBitmap( img, 60, 60, false );
+	    		}
+	    		String text = dm.getText( id );
+	    		// TODO: Preferenceの「表示切替」を見てaddするかそうでないかを決める
+	    		// TODO: Dateの実装
+	    		add( new Item( id, text, img ) );
+	    	}
     	}
     	
     	sort( new Comparator<Item>() {
