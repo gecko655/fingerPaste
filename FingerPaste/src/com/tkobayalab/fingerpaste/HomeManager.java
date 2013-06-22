@@ -1,9 +1,12 @@
 package com.tkobayalab.fingerpaste;
 
+import android.content.Intent;
+
 public class HomeManager {
 	private HomeActivity homeActivity;
 	
 	public HomeManager(HomeActivity homeActivity){
+		this.homeActivity = homeActivity;
 	}
 	
 	public void startAddActivity() {
@@ -28,6 +31,13 @@ public class HomeManager {
 	}
 	
 	public void overrideClipboard(int id) {
+	}
+	
+	public void startService() {
+		homeActivity.startService( new Intent( homeActivity.getBaseContext(), FPService.class ) );
+	}
+	
+	public void initiateDatabase() {
 	}
 	
 }
