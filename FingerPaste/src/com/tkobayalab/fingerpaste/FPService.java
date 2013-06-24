@@ -34,7 +34,7 @@ public class FPService extends Service {
 		// FLAG_ACTIVITY_NEW_TASKはサービスからアクティビティを呼び出すときに必ず必要
 		// FLAG_ACTIVITY_NO_ANIMATIONは遷移のアニメーションがうざいから必要
 		Intent intent = new Intent( this, GestureInputAndTransitionActivity.class );
-		intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION  );
+		intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION |Intent.FLAG_ACTIVITY_MULTIPLE_TASK );
 		startActivity( intent );
 	}
 }
