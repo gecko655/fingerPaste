@@ -1,16 +1,36 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ConfigureActivity" >
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+   <ListPreference
+     android:key="Thema"
+     android:summary="テーマを変更"
+     android:title="テーマ" />
+     <!--  
+     android:entries="@array/listOptions"
+     android:entryValues="@array/listValues"
+     -->
+   <ListPreference
+     android:key="Fontsize"
+     android:summary="フォントサイズを変更"
+     android:title="フォントサイズ" />
+     <!--  
+     android:entries="@array/listOptions"
+     android:entryValues="@array/listValues"
+     -->
+   <ListPreference
+     android:key="OriginOfSwipe"
+     android:summary="スワイプの起点を変更"
+     android:title="スワイプ" />
+     <!--  
+     android:entries="@array/listOptions"
+     android:entryValues="@array/listValues"
+     -->
+   <ListPreference
+     android:key="ReservedGesture"
+     android:summary="予約ジェスチャーを変更"
+     android:title="予約ジェスチャー" />
+     <!--  
+     android:entries="@array/listOptions"
+     android:entryValues="@array/listValues"
+     -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-</RelativeLayout>
+</PreferenceScreen>
