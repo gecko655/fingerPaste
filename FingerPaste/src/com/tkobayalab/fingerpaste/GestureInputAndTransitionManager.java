@@ -15,15 +15,18 @@ public class GestureInputAndTransitionManager {
 	public void recognize(Gesture gesture){
 		DatabaseManager dbManager = new DatabaseManager(gITActivity);
 		int id = dbManager.getIdOfMaxScore(gesture);
+		
 		if(dbManager.isAlpha(id)){
 			startHomeActivity();
 		}else if(dbManager.isBeta(id)){
 			startAddActivity();
 		}else if(dbManager.isGamma(id)){
 			addItem();
+			Log.d("myTest", "gamma!");
 		}else{
 			changeClipBoard(id);
 		}
+		
 	}
 
 	private void startHomeActivity(){
