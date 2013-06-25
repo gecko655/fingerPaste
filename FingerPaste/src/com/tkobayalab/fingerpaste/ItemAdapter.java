@@ -76,6 +76,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 				}
 			}
     	});
+
+    	// 選択情報を初期化する
+    	// 削除後に選択情報が残っていると、それを参照しようとした時に実体がなくてNULLPOを吐くため
+    	setSelectedItemPosition( AdapterView.INVALID_POSITION );
     	
     	notifyDataSetChanged();
     }
