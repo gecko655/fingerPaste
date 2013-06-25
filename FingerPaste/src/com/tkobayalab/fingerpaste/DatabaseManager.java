@@ -115,7 +115,7 @@ public class DatabaseManager {
 	}
 	
 	public boolean hasSimilarItem(Gesture gesture){
-		
+		// todo
 		return false;
 	}
 	
@@ -179,6 +179,7 @@ public class DatabaseManager {
     	}
 		
     	String[] gestureid = GestureLibraryManager.getGestureEntrys();
+    	
     	for(int i = 0; i < gestureid.length; i++){
     		if(Integer.parseInt(gestureid[i]) == alphaID) continue;
     		if(Integer.parseInt(gestureid[i]) == betaID) continue;

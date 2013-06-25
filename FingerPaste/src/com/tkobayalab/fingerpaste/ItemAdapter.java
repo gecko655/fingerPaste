@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.util.Log;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
 	private Context context;

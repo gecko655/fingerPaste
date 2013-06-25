@@ -12,20 +12,16 @@ import android.util.Log;
 
 
 public class GestureLibraryManager {
-	static private GestureLibraryManager glm = new GestureLibraryManager();
 	static private GestureStore gestures;
 	final static private String pathToDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
 	
-	private GestureLibraryManager(){
+	static {
 		try{
     		gestures.load(new FileInputStream(pathToDB));
     	} catch (IOException e){
-    		Log.d("myTest", "load error");
+    		gestures = new GestureStore();
+    		initializeGestures();
     	}
-	}
-	
-	static public GestureLibraryManager getGestures(){
-		return glm;
 	}
 	
 	static public boolean saveGestures(){

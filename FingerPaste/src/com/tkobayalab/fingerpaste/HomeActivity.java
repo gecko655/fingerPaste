@@ -36,6 +36,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
         // if( ) {
         // homeManager.initiateDatabase();
         // }
+        
 	}
 	
 	@Override
