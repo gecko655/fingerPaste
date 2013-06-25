@@ -56,7 +56,6 @@ public class GestureLibraryManager {
 	}
 	
 	static public String[] getGestureEntrys(){
-		Log.d("myTest", "pointC");
 		return gestures.getGestureEntries().toArray(new String[0]);
 	}
 	

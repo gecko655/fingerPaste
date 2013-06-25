@@ -56,6 +56,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 	    		if( img != null ) {
 	    			img = Bitmap.createScaledBitmap( img, 60, 60, false );
 	    		}
+	    		
 	    		String text = dm.getText( id );
 	    		// TODO: Preferenceの「表示切替」を見てaddするかそうでないかを決める
 	    		// TODO: Dateの実装

@@ -150,7 +150,7 @@ public class DatabaseManager {
 
 	public Bitmap getGestureImage(int id){
 		ArrayList<Gesture> g = GestureLibraryManager.getGestures("" + id);
-		
+		if(g == null) return null;
 		if(g.size() == 0) return null;
 		return g.get(0).toBitmap(100, 100, 8, 0xFFFFFF00);
 	}
