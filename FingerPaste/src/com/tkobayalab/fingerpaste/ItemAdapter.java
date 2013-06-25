@@ -49,18 +49,26 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     	
 		items.clear();
 		
-    	int[] ids = dm.getElementsId();
-    	if( ids != null ) {
-	    	for( int id : ids ) {
-	    		Bitmap img = dm.getGestureImage( id );
-	    		if( img != null ) {
-	    			img = Bitmap.createScaledBitmap( img, 60, 60, false );
-	    		}
-	    		
-	    		String text = dm.getText( id );
+    	int[] typeOfItems = dm.getElementsId();
+    	if( typeOfItems != null ) {
+	    	for( int id = 0; id < DatabaseManager.MAX_ITEM; id++ ) {
+	    		String text;
+	    		Bitmap img;
 	    		// TODO: Preferenceの「表示切替」を見てaddするかそうでないかを決める
 	    		// TODO: Dateの実装
-	    		add( new Item( id, text, img ) );
+	    		switch( typeOfItems[id] ) {
+	    		case DatabaseManager.TYPE_NO_GESTURE:
+		    		text = dm.getText( id );
+		    		add( new Item( id, text, null ) );
+		    		break;
+	    		case DatabaseManager.TYPE_HAS_GESTURE:
+		    		text = dm.getText( id );
+		    		img = Bitmap.createScaledBitmap( dm.getGestureImage( id ), 60, 60, false );
+		    		add( new Item( id, text, img ) );
+		    		break;
+		    	default:
+		    		break;
+	    		}
 	    	}
     	}
     	

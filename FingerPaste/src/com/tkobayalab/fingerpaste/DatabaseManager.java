@@ -24,6 +24,11 @@ public class DatabaseManager {
 	final int betaID = -888;
 	final int gammaID = -777;
 	
+	public static final int MAX_ITEM = 100;
+
+	public static final int TYPE_EMPTY = 0;
+	public static final int TYPE_NO_GESTURE = 1;
+	public static final int TYPE_HAS_GESTURE = 2;
 	
 	public DatabaseManager(Context context){
 		dbHelper = new DatabaseOpenHelper(context);
