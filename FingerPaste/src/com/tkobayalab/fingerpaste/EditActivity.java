@@ -29,7 +29,9 @@ public class EditActivity extends Activity implements OnCheckedChangeListener, O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit);
+		setContentView(R.layout.activity_add);
+		TextView textView = (TextView) findViewById(R.id.textView2);
+		textView.setText(R.string.editHeader);
 		editText= (EditText)findViewById(R.id.editText1);
 		radioGroup = (RadioGroup) findViewById(R.id.RadioGroup);
 		radioGroup.setOnCheckedChangeListener(this);
