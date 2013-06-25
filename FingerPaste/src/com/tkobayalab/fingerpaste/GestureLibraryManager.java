@@ -16,12 +16,14 @@ public class GestureLibraryManager {
 	final static private String pathToDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
 	
 	static {
+		gestures = new GestureStore();
 		try{
     		gestures.load(new FileInputStream(pathToDB));
     	} catch (IOException e){
-    		gestures = new GestureStore();
     		initializeGestures();
     	}
+		
+		Log.d("myTest", "create gestures.");
 	}
 	
 	static public boolean saveGestures(){
@@ -54,7 +56,8 @@ public class GestureLibraryManager {
 	}
 	
 	static public String[] getGestureEntrys(){
-		return (String[])gestures.getGestureEntries().toArray();
+		Log.d("myTest", "pointC");
+		return gestures.getGestureEntries().toArray(new String[0]);
 	}
 	
 	static public void changeGesture(String entry, Gesture gesture){

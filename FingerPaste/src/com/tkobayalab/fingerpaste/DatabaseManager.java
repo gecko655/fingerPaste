@@ -179,14 +179,13 @@ public class DatabaseManager {
     	}
 		
     	String[] gestureid = GestureLibraryManager.getGestureEntrys();
-    	
     	for(int i = 0; i < gestureid.length; i++){
     		if(Integer.parseInt(gestureid[i]) == alphaID) continue;
     		if(Integer.parseInt(gestureid[i]) == betaID) continue;
     		if(Integer.parseInt(gestureid[i]) == gammaID) continue;
     		typeOfItems[Integer.parseInt(gestureid[i])]++; // when gesture of this id exists
     	}
-		
+    	
 		return typeOfItems;
 	}
 	
