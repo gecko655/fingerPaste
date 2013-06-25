@@ -21,17 +21,11 @@ import android.util.Log;
 public class ItemAdapter extends ArrayAdapter<Item> {
 	private Context context;
     private int selectedItemPosition;
-    private final StateListDrawable sld;
     
 	public ItemAdapter(Context context) {
 		super(context,0);
 		this.context = context;
 		this.selectedItemPosition = AdapterView.INVALID_POSITION;
-		
-    	this.sld = new StateListDrawable();
-        // TODO: テーマによって選択時のハイライト色を変える
-    	this.sld.addState( new int[] { android.R.attr.state_selected },
-    			context.getResources().getDrawable(android.R.color.holo_blue_light) );
 	}
 	
 	public void setSelectedItemPosition( int position ) {
@@ -98,7 +92,13 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         	tv.setTextSize( TypedValue.COMPLEX_UNIT_PX, 40 );
         	tv.setFocusable( false );
         	tv.setFocusableInTouchMode( false );
-        	tv.setBackgroundDrawable( sld );
+        	{
+        		StateListDrawable sld = new StateListDrawable();
+	            // TODO: テーマによって選択時のハイライト色を変える
+	        	sld.addState( new int[] { android.R.attr.state_selected },
+	        			context.getResources().getDrawable(android.R.color.holo_blue_light) );
+	        	tv.setBackgroundDrawable( sld );
+        	}
         	convertView = tv;
         }
 
