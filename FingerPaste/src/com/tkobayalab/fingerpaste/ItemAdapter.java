@@ -20,14 +20,12 @@ import android.util.Log;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
 	private Context context;
-    private final ArrayList<Item> items;
     private int selectedItemPosition;
     private final StateListDrawable sld;
     
 	public ItemAdapter(Context context) {
 		super(context,0);
 		this.context = context;
-		this.items = new ArrayList<Item>();
 		this.selectedItemPosition = AdapterView.INVALID_POSITION;
 		
     	this.sld = new StateListDrawable();
@@ -47,7 +45,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     public void refresh() {
     	DatabaseManager dm = new DatabaseManager( context );
     	
-		items.clear();
+    	clear();
 		
     	int[] typeOfItems = dm.getElementsId();
     	if( typeOfItems != null ) {
