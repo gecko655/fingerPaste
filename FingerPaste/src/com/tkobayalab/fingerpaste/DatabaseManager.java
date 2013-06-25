@@ -20,7 +20,6 @@ public class DatabaseManager {
 	
 	private DatabaseOpenHelper dbHelper;
 	
-	final private String pathToDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
 	final int alphaID = -999;
 	final int betaID = -888;
 	final int gammaID = -777;

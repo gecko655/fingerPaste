@@ -2,25 +2,30 @@ package com.tkobayalab.fingerpaste;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.gesture.Gesture;
 import android.gesture.GestureStore;
 import android.gesture.Prediction;
 import android.util.Log;
 
+import android.content.res.AssetManager;
 
 public class GestureLibraryManager {
 	static private GestureStore gestures;
-	final static private String pathToDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
+	final static private String pathToGestureDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
+	final static private String pathToInitialGestureDB = "/assets/init_gesturedb";
 	
 	static {
 		gestures = new GestureStore();
 		try{
-    		gestures.load(new FileInputStream(pathToDB));
+    		gestures.load(new FileInputStream(pathToGestureDB));
     	} catch (IOException e){
-    		initializeGestures();
+    		Log.d("myTest", "initialerror");
     	}
 		
 		Log.d("myTest", "create gestures.");
@@ -28,7 +33,7 @@ public class GestureLibraryManager {
 	
 	static public boolean saveGestures(){
     	try{
-    		gestures.save(new FileOutputStream(pathToDB));
+    		gestures.save(new FileOutputStream(pathToGestureDB));
     	} catch (IOException e){
     		Log.d("myTest", "save error");
     		return false;
@@ -65,7 +70,14 @@ public class GestureLibraryManager {
 		saveGestures();
 	}
 	
-	static public void initializeGestures(){
-		// todo
+	static public void initializeGestures(Resources res){
+		try{
+			AssetManager as = res.getAssets();   
+			InputStream is = as.open("init_gesturedb");  
+			gestures.load(is);
+			saveGestures();
+		} catch(IOException e){
+			Log.d("myTest", "failed initialization.");
+		}
 	}
 }
