@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:key="configure">
    <ListPreference
-     android:key="Thema"
+     android:key="Theme"
      android:summary="テーマを変更"
-     android:title="テーマ" />
-     <!--  
-     android:entries="@array/listOptions"
-     android:entryValues="@array/listValues"
-     -->
+     android:title="テーマ"
+     android:entries="@array/theme"
+     android:entryValues="@array/themeValues"/>
    <ListPreference
      android:key="Fontsize"
      android:summary="フォントサイズを変更"
-     android:title="フォントサイズ" />
-     <!--  
-     android:entries="@array/listOptions"
-     android:entryValues="@array/listValues"
-     -->
+     android:title="フォントサイズ" 
+     android:entries="@array/fontsize"
+     android:entryValues="@array/fontsizeValues"/>
    <ListPreference
      android:key="OriginOfSwipe"
      android:summary="スワイプの起点を変更"
-     android:title="スワイプ" />
-     <!--  
-     android:entries="@array/listOptions"
-     android:entryValues="@array/listValues"
-     -->
-   <ListPreference
-     android:key="ReservedGesture"
-     android:summary="予約ジェスチャーを変更"
-     android:title="予約ジェスチャー" />
-     <!--  
-     android:entries="@array/listOptions"
-     android:entryValues="@array/listValues"
-     -->
+     android:title="スワイプ"
+     android:entries="@array/originOfSwipe"
+     android:entryValues="@array/originOfSwipeValues" />
+   <PreferenceCategory
+        android:key="ReservedGesture"
+        android:title="予約ジェスチャーを変更">
+	   <Preference
+	     android:key="ReservedGestureAlpha"
+	     android:title="予約ジェスチャーα" />
+	   <Preference
+	     android:key="ReservedGestureBeta"
+	     android:title="予約ジェスチャーβ" />
+	   <Preference
+	     android:key="ReservedGestureGamma"
+	     android:title="予約ジェスチャーγ" />
+   </PreferenceCategory>
 
 </PreferenceScreen>

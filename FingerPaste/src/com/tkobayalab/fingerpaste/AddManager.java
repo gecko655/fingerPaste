@@ -36,7 +36,7 @@ public class AddManager {
 	}
 
 	public void startGestureInputActivity(){
-		addActivity.startActivityForResult(new Intent(addActivity,GestureInputAndReturnIntentActivity.class), AddManager.REQUESTCODE);//TODO MagicNumber
+		addActivity.startActivityForResult(new Intent(addActivity,GestureInputAndReturnIntentActivity.class), AddManager.REQUESTCODE);
 	}
 	
 	public void receiveGesture(Gesture gesture) {

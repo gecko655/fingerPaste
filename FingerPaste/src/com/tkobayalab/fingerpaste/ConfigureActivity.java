@@ -1,13 +1,21 @@
 package com.tkobayalab.fingerpaste;
 
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Menu;
 
-public class ConfigureActivity extends Activity{
+public class ConfigureActivity extends Activity implements OnPreferenceClickListener {
 	
 	private static final String PREF_KEY = "FingerPaste";
 
@@ -18,17 +26,26 @@ public class ConfigureActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		//setContentView(R.layout.activity_configure);
 		
-        // Display the fragment as the main content.
+        //Preference画面を表示する
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new PrefsFragment()).commit();	
+        
+        
 		pref = getSharedPreferences(PREF_KEY, Activity.MODE_PRIVATE);
 	}
 	
-	public static class PrefsFragment extends PreferenceFragment{
+	public static class PrefsFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState){
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.layout.activity_configure);
+	        PreferenceManager prefManager = getPreferenceManager();
+	        prefManager.setSharedPreferencesName(PREF_KEY);
+			PreferenceCategory prefCategory  = (PreferenceCategory) this.findPreference("ReservedGesture");
+			for(int i=0;i<prefCategory.getPreferenceCount();i++){
+				prefCategory.getPreference(i).setOnPreferenceClickListener((ConfigureActivity)getActivity());
+			}
+
 		}
 	}
 
@@ -39,4 +56,17 @@ public class ConfigureActivity extends Activity{
 		return true;
 	}
 
+	public boolean onPreferenceClick(Preference preference) {
+		if(preference.getKey().equals("ReservedGestureAlpha")){
+			Log.d("test","alpha");
+			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), 0);
+		}else if(preference.getKey().equals("ReservedGestureBeta")){
+			Log.d("test","beta");
+			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), 1);//TODO HardCoded
+		}else if(preference.getKey().equals("ReservedGestureGamma")){
+			Log.d("test","gamma");
+			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), 2);//TODO HardCoded
+		}
+		return false;
+	}
 }
