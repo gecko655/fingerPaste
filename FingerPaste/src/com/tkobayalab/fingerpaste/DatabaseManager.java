@@ -159,6 +159,13 @@ public class DatabaseManager {
 		return g.get(0).toBitmap(100, 100, 8, 0xFFFFFF00);
 	}
 	
+	public Bitmap getGestureImage(int id, int width, int height, int inset, int color){
+		ArrayList<Gesture> g = GestureLibraryManager.getGestures("" + id);
+		if(g == null) return null;
+		if(g.size() == 0) return null;
+		return g.get(0).toBitmap(width, height, inset, color);
+	}
+	
 	public int[] getElementsId(){
 		int[] typeOfItems = new int[100];
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
