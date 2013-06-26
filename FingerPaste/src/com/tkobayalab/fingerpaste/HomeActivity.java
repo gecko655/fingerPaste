@@ -42,9 +42,8 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 	@Override
 	protected void onResume() {
 		super.onResume();
-		adapter.refresh();
 		homeManager.startService();
-		refreshButtons();
+    	refreshUI();
 	}
 
 	@Override
@@ -130,6 +129,16 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 			item2.setEnabled( false );
 		}
 		
+	}
+
+	private void refreshListView() {
+		adapter.refresh();
+	}
+	
+	public void refreshUI() {
+		// 必ずリストビューを更新してからボタンを更新すること
+		refreshListView();
+		refreshButtons();
 	}
 
 }

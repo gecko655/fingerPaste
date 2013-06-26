@@ -8,6 +8,8 @@ public class GestureInputAndTransitionManager {
 	private Gesture gesture;
 	private GestureInputAndTransitionActivity gITActivity;
 	
+	
+	
 	public GestureInputAndTransitionManager(GestureInputAndTransitionActivity gestureInputAndTransitionActivity){
 		gITActivity = gestureInputAndTransitionActivity;
 	}

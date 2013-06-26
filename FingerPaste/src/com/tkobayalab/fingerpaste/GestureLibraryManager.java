@@ -80,4 +80,11 @@ public class GestureLibraryManager {
 			Log.d("myTest", "failed initialization.");
 		}
 	}
+	
+	static public boolean isGestureOfThisId(int id){
+		ArrayList<Gesture> g = gestures.getGestures("" + id);
+		if(g == null) return false;
+		if(g.size() == 0) return false;
+		return true;
+	}
 }
