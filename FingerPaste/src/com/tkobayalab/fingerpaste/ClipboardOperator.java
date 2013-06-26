@@ -13,13 +13,13 @@ public class ClipboardOperator {
 	}
 
 	public String getText(){
-		ClipDescription cd = cm.getPrimaryClipDescription();
-		
-		if(cd.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST)) return null;
-		if(cd.hasMimeType(ClipDescription.MIMETYPE_TEXT_INTENT)) return null;
-		if(cd.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML)) return null;  // this also can through as MIMETYPE_TEXT_PLAIN
-		
-		return cm.getPrimaryClip().toString();
+		ClipData cd = cm.getPrimaryClip();
+
+		if(cd != null){
+			ClipData.Item item = cd.getItemAt(0);
+			return item.getText().toString();
+		}
+		return null;
 	}
 	
 	public void setText(String text){
