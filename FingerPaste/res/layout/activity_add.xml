@@ -19,9 +19,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignTop="@+id/RadioGroup"
         android:text="@string/gesture"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -30,16 +29,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="16dp"
+        android:layout_alignBaseline="@+id/editText1"
         android:text="@string/text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RadioGroup
         android:id="@+id/RadioGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/editText1"
         android:layout_toRightOf="@+id/textView3" >
 
         <RadioButton
@@ -67,10 +65,12 @@
 
     <EditText
         android:id="@+id/editText1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
+        android:layout_below="@+id/textView2"
         android:layout_toRightOf="@+id/textView1"
+        android:inputType="textMultiLine"
+        android:lines="5"
         android:ems="10" />
 
  <LinearLayout 
@@ -81,19 +81,22 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
      >
-     
+
     <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/OK" />
+        android:text="@string/OK" 
+        />
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/cancel" />
+        android:text="@string/cancel" 
+        />
  </LinearLayout>
+
 
 </RelativeLayout>
