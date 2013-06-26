@@ -12,8 +12,11 @@ import android.preference.PreferenceScreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.gesture.Gesture;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class ConfigureActivity extends Activity implements OnPreferenceClickListener {
 	
@@ -68,5 +71,20 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), 2);//TODO HardCoded
 		}
 		return false;
+	}
+	@Override
+	public void onActivityResult(int requestCode,int resultCode,Intent data){
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==AbstractGestureInputActivity.SUCCESS){
+			Gesture gesture = ((Gesture)data.getExtras().getParcelable("Gesture"));
+			DatabaseManager dbManager = new DatabaseManager(this);
+			if(requestCode==0){
+				dbManager.changeAlpha(gesture);
+			}else if(requestCode==1){
+				dbManager.changeBeta(gesture);
+			}else if(requestCode==2){
+				dbManager.changeGamma(gesture);
+			}
+		}
 	}
 }
