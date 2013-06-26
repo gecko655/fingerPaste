@@ -168,7 +168,11 @@ public class DatabaseManager {
 	}
 	
 	public boolean hasSimilarItem(Gesture gesture){
-		// todo
+		ArrayList<Prediction> predictions = GestureLibraryManager.getPredictions(gesture);
+		
+		if(predictions.size() > 0){
+			if(predictions.get(0).score > 5.0) return true;  // 5.0 is changeable.
+		}
 		return false;
 	}
 	
