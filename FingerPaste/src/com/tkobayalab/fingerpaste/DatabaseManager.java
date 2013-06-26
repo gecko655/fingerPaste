@@ -20,9 +20,9 @@ public class DatabaseManager {
 	
 	private DatabaseOpenHelper dbHelper;
 	
-	final int alphaID = -999;
-	final int betaID = -888;
-	final int gammaID = -777;
+	final static int alphaID = -999;
+	final static int betaID = -888;
+	final static int gammaID = -777;
 	
 	public static final int MAX_ITEM = 100;
 
@@ -39,7 +39,9 @@ public class DatabaseManager {
 		
 		if(id == alphaID || id == betaID || id == gammaID) return;
 		db.delete("textdb", "_id =" + id, null);
-		GestureLibraryManager.deleteGesture("" + id);
+		if(GestureLibraryManager.isGestureOfThisId(id)){
+			GestureLibraryManager.deleteGesture("" + id);
+		}
 	}
 	
 	public void deleteAllItem(){
@@ -80,6 +82,53 @@ public class DatabaseManager {
         val.put("text" , text);
         val.put("updatetime", date.getTime());
         
+        db.insert("textdb", null, val);
+	}
+	
+	public void edit(int id, String text){
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		db.delete("textdb", "_id =" + id, null);
+		Date date = new Date();
+        ContentValues val = new ContentValues();
+        val.put("_id", id);
+        val.put("text" , text);
+        val.put("updatetime", date.getTime());
+   
+        db.insert("textdb", null, val);
+	}
+	
+	public void edit(int id, Gesture gesture){
+		String text = getText(id);
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		if(GestureLibraryManager.isGestureOfThisId(id)){
+			GestureLibraryManager.deleteGesture("" + id);
+		}
+		GestureLibraryManager.addGesture("" + id, gesture);
+		
+		db.delete("textdb", "_id =" + id, null);
+		Date date = new Date();
+        ContentValues val = new ContentValues();
+        val.put("_id", id);
+        val.put("text" , text);
+        val.put("updatetime", date.getTime());
+   
+        db.insert("textdb", null, val);
+	}
+	
+	public void edit(int id, String text, Gesture gesture){
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		if(GestureLibraryManager.isGestureOfThisId(id)){
+			GestureLibraryManager.deleteGesture("" + id);
+		}
+		GestureLibraryManager.addGesture("" + id, gesture);
+		
+		db.delete("textdb", "_id =" + id, null);
+		Date date = new Date();
+        ContentValues val = new ContentValues();
+        val.put("_id", id);
+        val.put("text" , text);
+        val.put("updatetime", date.getTime());
+   
         db.insert("textdb", null, val);
 	}
 	
