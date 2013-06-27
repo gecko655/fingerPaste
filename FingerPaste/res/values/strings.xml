@@ -18,7 +18,15 @@
     <string name="action_delete_all">すべて削除</string>
     <string name="action_overwrite">書き換え</string>
     <string name="action_sort">ソート</string>
+    <string name="action_sort_1">追加日時とアルファベット</string>
+    <string name="action_sort_1_1">追加日時</string>
+    <string name="action_sort_1_2">アルファベット</string>
+    <string name="action_sort_2">昇順と降順</string>
+    <string name="action_sort_2_1">昇順</string>
+    <string name="action_sort_2_2">降順</string>
     <string name="action_filter">表示切り替え</string>
+    <string name="action_filter_1">すべて</string>
+    <string name="action_filter_2">ジェスチャーあり</string>
     <string name="action_settings">設定</string>
     <!-- For HomeActivity End-->
 

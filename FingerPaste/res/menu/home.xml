@@ -26,11 +26,33 @@
     <item
         android:id="@+id/action_sort"
         android:showAsAction="never"
-        android:title="@string/action_sort"/>
+        android:title="@string/action_sort">
+        <menu>
+	        <item android:id="@+id/action_sort_1" android:title="@string/action_sort_1">
+		        <menu>
+		        <item android:id="@+id/action_sort_1_1" android:title="@string/action_sort_1_1">
+		        </item>
+		        <item android:id="@+id/action_sort_1_2" android:title="@string/action_sort_1_2" />
+		        </menu>
+	        </item>
+	        <item android:id="@+id/action_sort_2" android:title="@string/action_sort_2">
+		        <menu>
+		        <item android:id="@+id/action_sort_2_1" android:title="@string/action_sort_2_1">
+		        </item>
+		        <item android:id="@+id/action_sort_2_2" android:title="@string/action_sort_2_2" />
+		        </menu>
+	        </item>
+        </menu>
+    </item>
     <item
         android:id="@+id/action_filter"
         android:showAsAction="never"
-        android:title="@string/action_filter"/>
+        android:title="@string/action_filter">
+        <menu>
+	        <item android:id="@+id/action_filter_1" android:title="@string/action_filter_1" />
+	        <item android:id="@+id/action_filter_2" android:title="@string/action_filter_2" />
+        </menu>
+    </item>
     <item
         android:id="@+id/action_delete_all"
         android:showAsAction="never"

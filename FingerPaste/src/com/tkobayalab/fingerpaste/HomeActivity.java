@@ -85,10 +85,18 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 			homeManager.deleteAllItems();
 			return true;
 		// TODO: ソートボタン、書き換えボタン
-		case R.id.action_sort:
-			return false;
-		case R.id.action_filter:
-			return false;
+		case R.id.action_sort_1_1:
+			return true;
+		case R.id.action_sort_1_2:
+			return true;
+		case R.id.action_sort_2_1:
+			return true;
+		case R.id.action_sort_2_2:
+			return true;
+		case R.id.action_filter_1:
+			return true;
+		case R.id.action_filter_2:
+			return true;
 		}
 		return true;
 	}
