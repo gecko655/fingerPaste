@@ -89,7 +89,6 @@ public class AddActivity extends Activity implements OnCheckedChangeListener, On
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
-		Toast.makeText(this, resultCode+"", Toast.LENGTH_LONG).show();
 		if(resultCode==AbstractGestureInputActivity.SUCCESS
 				&&requestCode==AddManager.REQUESTCODE){
 			gesture = ((Gesture)data.getExtras().getParcelable("Gesture"));

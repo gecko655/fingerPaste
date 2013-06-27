@@ -23,6 +23,7 @@ public class AddManager {
 		}else{
 			DatabaseManager dbManager = new DatabaseManager(addActivity);
 			dbManager.add(text, gesture);
+			Toast.makeText(addActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeAddActivity();
 		}
 		//Toast.makeText(addActivity, "addItem() called: "+text, Toast.LENGTH_LONG).show();
@@ -31,6 +32,7 @@ public class AddManager {
 	public void addItem(String text){
 		DatabaseManager dbManager = new DatabaseManager(addActivity);
 		dbManager.add(text);
+		Toast.makeText(addActivity, "登録しました", Toast.LENGTH_SHORT).show();
 		closeAddActivity();
 		//Toast.makeText(addActivity, "addItem() called: "+text, Toast.LENGTH_LONG).show();
 	}
