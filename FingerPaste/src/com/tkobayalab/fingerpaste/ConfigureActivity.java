@@ -12,13 +12,15 @@ import android.preference.PreferenceScreen;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources.Theme;
 import android.gesture.Gesture;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class ConfigureActivity extends Activity implements OnPreferenceClickListener {
+public class ConfigureActivity extends Activity implements OnPreferenceClickListener, OnSharedPreferenceChangeListener {
 	
 	private static final String PREF_KEY = "FingerPaste";
 
@@ -35,6 +37,7 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
         
         
 		pref = getSharedPreferences(PREF_KEY, Activity.MODE_PRIVATE);
+		pref.registerOnSharedPreferenceChangeListener(this);
 	}
 	
 	public static class PrefsFragment extends PreferenceFragment {
@@ -86,5 +89,27 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 				dbManager.changeGamma(gesture);
 			}
 		}
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		if(key.equals("Theme")){
+			if(sharedPreferences.getString("Theme", "error").equals("holo_dark")){
+				Log.d("test","dark");
+				//getApplicationContext().getTheme().applyStyle(android.R.style.Theme_Holo, true);
+				setTheme(android.R.style.Theme_Holo);
+		        getFragmentManager().beginTransaction().replace(android.R.id.content,
+		                new PrefsFragment()).commit();	
+			}else if(sharedPreferences.getString("Theme", "error").equals("holo_light")){
+				Log.d("test","light");
+				//Theme theme = getApplicationContext().getTheme();
+				//theme.applyStyle(android.R.style.Theme_Holo_Light, true);
+				setTheme(android.R.style.Theme_Holo_Light);
+		        getFragmentManager().beginTransaction().replace(android.R.id.content,
+		                new PrefsFragment()).commit();	
+			}
+		}
+		
 	}
 }

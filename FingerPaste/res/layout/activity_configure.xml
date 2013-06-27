@@ -6,7 +6,7 @@
      android:summary="テーマを変更"
      android:title="テーマ"
      android:entries="@array/theme"
-     android:defaultValue="holo_dark"
+     android:defaultValue="holo_light"
      android:entryValues="@array/themeValues"/>
    <ListPreference
      android:key="Fontsize"

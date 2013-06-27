@@ -3,6 +3,7 @@ package com.tkobayalab.fingerpaste;
 import android.content.Intent;
 import android.gesture.Gesture;
 import android.util.Log;
+import android.widget.Toast;
 
 public class GestureInputAndTransitionManager {
 	private Gesture gesture;
@@ -24,7 +25,6 @@ public class GestureInputAndTransitionManager {
 			startAddActivity();
 		}else if(dbManager.isGamma(id)){
 			addItem();
-			Log.d("myTest", "gamma!");
 		}else{
 			changeClipBoard(id);
 		}
@@ -47,7 +47,9 @@ public class GestureInputAndTransitionManager {
 	private void addItem(){
 		ClipboardOperator co = new ClipboardOperator(gITActivity);
 		DatabaseManager dbManager = new DatabaseManager(gITActivity);
-		dbManager.add(co.getText());
+		String text = co.getText();
+		dbManager.add(text);
+		Toast.makeText(gITActivity, text +"を登録しました。", Toast.LENGTH_SHORT).show();
 		gITActivity.finish();
 		
 	}
@@ -55,7 +57,9 @@ public class GestureInputAndTransitionManager {
 	private void changeClipBoard(int id){
 		ClipboardOperator co = new ClipboardOperator(gITActivity);
 		DatabaseManager dbManager = new DatabaseManager(gITActivity);
-		co.setText(dbManager.getText(id));
+		String text = dbManager.getText(id);
+		co.setText(text);
+		Toast.makeText(gITActivity, "クリップボードに"+text+"をコピーしました。", Toast.LENGTH_SHORT).show();
 		gITActivity.finish();
 	}
 

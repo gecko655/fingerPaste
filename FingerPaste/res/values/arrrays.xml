@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="theme">
-        <item>Holo Dark</item>
         <item>Holo Light</item>
+        <item>Holo Dark</item>
     </string-array>
     <string-array name="themeValues">
-        <item>holo_dark</item>
         <item>holo_light</item>
+        <item>holo_dark</item>
     </string-array>
     <string-array name="fontsize">
         <item>大</item>

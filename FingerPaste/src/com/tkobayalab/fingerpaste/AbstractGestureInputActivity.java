@@ -19,12 +19,6 @@ public abstract class AbstractGestureInputActivity extends Activity implements O
 		gestures.addOnGesturePerformedListener(this);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.abstract_gesture_input, menu);
-		return true;
-	}
 	
 	@Override
 	public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
