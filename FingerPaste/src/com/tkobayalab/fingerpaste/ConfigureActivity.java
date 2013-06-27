@@ -99,15 +99,15 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 				Log.d("test","dark");
 				//getApplicationContext().getTheme().applyStyle(android.R.style.Theme_Holo, true);
 				setTheme(android.R.style.Theme_Holo);
-		        getFragmentManager().beginTransaction().replace(android.R.id.content,
-		                new PrefsFragment()).commit();	
+		        //getFragmentManager().beginTransaction().replace(android.R.id.content,
+		                //new PrefsFragment()).commit();	
 			}else if(sharedPreferences.getString("Theme", "error").equals("holo_light")){
 				Log.d("test","light");
 				//Theme theme = getApplicationContext().getTheme();
 				//theme.applyStyle(android.R.style.Theme_Holo_Light, true);
 				setTheme(android.R.style.Theme_Holo_Light);
-		        getFragmentManager().beginTransaction().replace(android.R.id.content,
-		                new PrefsFragment()).commit();	
+		        //getFragmentManager().beginTransaction().replace(android.R.id.content,
+		                //new PrefsFragment()).commit();	
 			}
 		}
 		
