@@ -14,20 +14,17 @@ public class HomeManager {
 	public void startAddActivity() {
 		Intent intent = new Intent(homeActivity,AddActivity.class);
 		homeActivity.startActivity(intent);
-		homeActivity.finish();
 	}
 	
 	public void startEditActivity(int id) {
 		Intent intent = new Intent(homeActivity,EditActivity.class);
 		intent.putExtra("ID", id);
 		homeActivity.startActivity(intent);
-		homeActivity.finish();
 	}
 	
 	public void startConfigureActivity() {
 		Intent intent = new Intent(homeActivity,ConfigureActivity.class);
 		homeActivity.startActivity(intent);
-		homeActivity.finish();
 	}
 	
 	public void deleteItem(int id) {
