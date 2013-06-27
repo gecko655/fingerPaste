@@ -23,7 +23,7 @@ public class ClipboardOperator {
 	}
 	
 	public void setText(String text){
-		ClipData.Item item = new ClipData.Item("クリップボードにコピーしたいテキストデータ");
+		ClipData.Item item = new ClipData.Item(text);
 		String[] mimeType = new String[1];
 		mimeType[0] = ClipDescription.MIMETYPE_TEXT_PLAIN;
 		 
