@@ -67,7 +67,7 @@ public class HomeManager {
 	public void changeDisplayCondition(int type) {
 	}
 	
-	public void overrideClipboard(int id) {
+	public void overwriteClipboard(int id) {
 		ClipboardOperator co = new ClipboardOperator( homeActivity );
 		DatabaseManager dm = new DatabaseManager( homeActivity );
 		String text = dm.getText( id );

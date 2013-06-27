@@ -62,7 +62,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 		switch( item.getItemId() ) {
 		case R.id.action_overwrite:
 			if( position != AdapterView.INVALID_POSITION ) {
-				homeManager.overrideClipboard( adapter.getItem( position ).getId() );
+				homeManager.overwriteClipboard( adapter.getItem( position ).getId() );
 			}
 			return true;
 		case R.id.action_add:
@@ -106,7 +106,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
         Log.d("HOME", "onItemLongClick"+position);
 		if( position != AdapterView.INVALID_POSITION ) {
 			adapter.setSelectedItemPosition( position );
-			homeManager.overrideClipboard( adapter.getItem( position ).getId() );
+			homeManager.overwriteClipboard( adapter.getItem( position ).getId() );
 		}
 		refreshButtons();
 		return false;
