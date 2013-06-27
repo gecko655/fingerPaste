@@ -55,7 +55,7 @@ public class DetectView extends View implements View.OnTouchListener {
 		setOnTouchListener( this );
 		
 		// 背景を透明に
-		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
+		setBackgroundColor( Color.argb( 255, 0, 0, 0 ) );
 	}
 
 	@Override
@@ -143,8 +143,8 @@ public class DetectView extends View implements View.OnTouchListener {
 		params.height = getDetectHeight();
 		updateLayout();
 		
-		//　背景を黒くし直す
-		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
+		//　背景を透明にし直す
+		setBackgroundColor( Color.argb( 255, 0, 0, 0 ) );
 		
 		invalidate();
 		
