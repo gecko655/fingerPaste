@@ -6,18 +6,21 @@
      android:summary="テーマを変更"
      android:title="テーマ"
      android:entries="@array/theme"
+     android:defaultValue="holo_dark"
      android:entryValues="@array/themeValues"/>
    <ListPreference
      android:key="Fontsize"
      android:summary="フォントサイズを変更"
      android:title="フォントサイズ" 
      android:entries="@array/fontsize"
+     android:defaultValue="small"
      android:entryValues="@array/fontsizeValues"/>
    <ListPreference
      android:key="OriginOfSwipe"
      android:summary="スワイプの起点を変更"
      android:title="スワイプ"
      android:entries="@array/originOfSwipe"
+     android:defaultValue="right_down"
      android:entryValues="@array/originOfSwipeValues" />
    <PreferenceCategory
         android:key="ReservedGesture"
