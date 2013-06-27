@@ -55,7 +55,7 @@ public class DetectView extends View implements View.OnTouchListener {
 		setOnTouchListener( this );
 		
 		// 背景を透明に
-		setBackgroundColor( Color.argb( 255, 0, 0, 0 ) );
+		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
 	}
 
 	@Override
@@ -111,6 +111,7 @@ public class DetectView extends View implements View.OnTouchListener {
 		return false;
 	}
 	private boolean onTouchDown(MotionEvent event) {
+		// DetectViewを最大化する
 		params.width = WindowManager.LayoutParams.MATCH_PARENT;
 		params.height = WindowManager.LayoutParams.MATCH_PARENT;
 		updateLayout();
@@ -144,7 +145,7 @@ public class DetectView extends View implements View.OnTouchListener {
 		updateLayout();
 		
 		//　背景を透明にし直す
-		setBackgroundColor( Color.argb( 255, 0, 0, 0 ) );
+		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
 		
 		invalidate();
 		
