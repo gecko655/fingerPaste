@@ -22,14 +22,17 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 		
 		setContentView( R.layout.activity_home );
 		
+		// HomeManagerを作成
 		homeManager = new HomeManager( this );
 
+		// ListViewの設定
 		adapter = new ItemAdapter( this );
         ListView lv = (ListView)findViewById( R.id.listView );
         lv.setAdapter( adapter );
         lv.setOnItemClickListener( this );
         lv.setOnItemLongClickListener( this );
-        lv.setChoiceMode( ListView.CHOICE_MODE_NONE );        
+        lv.setChoiceMode( ListView.CHOICE_MODE_NONE );
+        
         menu = null;
         
         // TODO: 初回起動時の処理
@@ -62,7 +65,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 		switch( item.getItemId() ) {
 		case R.id.action_overwrite:
 			if( position != AdapterView.INVALID_POSITION ) {
-				homeManager.overrideClipboard( adapter.getItem( position ).getId() );
+				homeManager.overwriteClipboard( adapter.getItem( position ).getId() );
 			}
 			return true;
 		case R.id.action_add:
@@ -103,10 +106,11 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		// 選択情報を更新する＋クリップボードを書き換える
         Log.d("HOME", "onItemLongClick"+position);
 		if( position != AdapterView.INVALID_POSITION ) {
 			adapter.setSelectedItemPosition( position );
-			homeManager.overrideClipboard( adapter.getItem( position ).getId() );
+			homeManager.overwriteClipboard( adapter.getItem( position ).getId() );
 		}
 		refreshButtons();
 		return false;
@@ -114,6 +118,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// 選択情報を更新する
         Log.d("HOME", "onItemClick"+position);
 		if( position != AdapterView.INVALID_POSITION ) {
 			view.setSelected( true );
@@ -123,6 +128,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 	}
 
 	private void refreshButtons() {
+		// アクションバーのボタンのEnable/Disableを更新する
 		if( menu == null ) {
 			return;
 		}
@@ -140,6 +146,8 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 	}
 
 	private void refreshListView() {
+		// リストビューの表示をデータベースと同期させる
+		// 選択情報は初期化される
 		adapter.refresh();
 	}
 	

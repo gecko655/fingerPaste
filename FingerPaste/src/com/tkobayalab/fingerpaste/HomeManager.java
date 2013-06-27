@@ -62,12 +62,21 @@ public class HomeManager {
 	}
 	
 	public void changeSortCondition(int type) {
+		// TODO: プレファレンスを変更する処理
 	}
 	
 	public void changeDisplayCondition(int type) {
+		// TODO: プレファレンスを変更する処理
 	}
 	
-	public void overrideClipboard(int id) {
+	public void overwriteClipboard(int id) {
+		ClipboardOperator co = new ClipboardOperator( homeActivity );
+		DatabaseManager dm = new DatabaseManager( homeActivity );
+		String text = dm.getText( id );
+		if( text != null ) {
+			co.setText( text );
+		}
+    	// TODO: TOAST表示
 	}
 	
 	public void startService() {
