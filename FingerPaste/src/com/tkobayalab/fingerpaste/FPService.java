@@ -35,8 +35,12 @@ public class FPService extends Service {
 	public void onSwipe() {
 		// FLAG_ACTIVITY_NEW_TASKはサービスからアクティビティを呼び出すときに必ず必要
 		// FLAG_ACTIVITY_NO_ANIMATIONは遷移のアニメーションがうざいから必要
+		// FLAG_ACTIVITY_NO_HISTORYはヒストリにジェスチャー入力画面を載せたくないから必要
 		Intent intent = new Intent( this, GestureInputAndTransitionActivity.class );
-		intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION |Intent.FLAG_ACTIVITY_MULTIPLE_TASK );
+		intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_NO_ANIMATION
+				| Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+				| Intent.FLAG_ACTIVITY_NO_HISTORY );
 		startActivity( intent );
 	}
 }
