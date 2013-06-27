@@ -2,7 +2,10 @@ package com.tkobayalab.fingerpaste;
 
 import android.content.Intent;
 import android.gesture.Gesture;
+import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class EditManager {
 	public static final int REQUESTCODE = 124;
@@ -14,12 +17,17 @@ public class EditManager {
 	}
 	
 	public void editItem(String text, Gesture gesture){
+		if(text.isEmpty()){
+			Toast.makeText(editActivity, "文字列が入力されていません", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		if(gesture==null){
 			editItem(text);
 		}else{
 			DatabaseManager dbManager = new DatabaseManager(editActivity);
 			dbManager.delete(id);
 			dbManager.add(text, gesture);
+			Toast.makeText(editActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeEditActivity();
 		}
 	}
@@ -28,6 +36,7 @@ public class EditManager {
 			DatabaseManager dbManager = new DatabaseManager(editActivity);
 			dbManager.delete(id);
 			dbManager.add(text);
+			Toast.makeText(editActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeEditActivity();
 	}
 
@@ -42,13 +51,16 @@ public class EditManager {
 	public void fillForm(int id){
 		DatabaseManager dbManager = new DatabaseManager(editActivity);
 		editActivity.editText.setText(dbManager.getText(id));
-		editActivity.imageButton.setImageBitmap(dbManager.getGestureImage(id));
+		
+		ImageView imageView=editActivity.imageButton;
+		//左右に1割ずつの余白を残す
+		imageView.setImageBitmap(dbManager.getGestureImage(id,(int)(imageView.getWidth()*0.8), (int)(imageView.getHeight()*0.8), 8, 0xffff0000));
 	}
 
 	public void receiveGesture(Gesture gesture) {
 		ImageView imageView=editActivity.imageButton;
 		//左右に1割ずつの余白を残す
-		imageView.setImageBitmap(gesture.toBitmap((int)(imageView.getWidth()*0.8), (int)(imageView.getHeight()*0.8), 0, 0xffff0000));
+		imageView.setImageBitmap(gesture.toBitmap((int)(imageView.getWidth()*0.8), (int)(imageView.getHeight()*0.8), 8, 0xffff0000));
 	}
 	
 	public void removeGesture(){
@@ -59,6 +71,10 @@ public class EditManager {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 	
 	

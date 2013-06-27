@@ -25,6 +25,7 @@ public class EditActivity extends Activity implements OnCheckedChangeListener, O
 	EditManager editManager;
 	
 	Gesture gesture;
+	private boolean firstFocused=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,19 @@ public class EditActivity extends Activity implements OnCheckedChangeListener, O
 				editManager.setId(id);
 			}
 		}
+		firstFocused = true;
+		
 
 	}
+	
+	@Override
+	 public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if(firstFocused){
+			editManager.fillForm(editManager.getId());
+			firstFocused=false;
+		}
+	 }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,7 +103,6 @@ public class EditActivity extends Activity implements OnCheckedChangeListener, O
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
-		Toast.makeText(this, resultCode+"", Toast.LENGTH_LONG).show();
 		if(resultCode==AbstractGestureInputActivity.SUCCESS
 				&&requestCode==EditManager.REQUESTCODE){
 			gesture = ((Gesture)data.getExtras().getParcelable("Gesture"));

@@ -14,11 +14,16 @@ public class AddManager {
 	}
 	
 	public void addItem(String text, Gesture gesture){
+		if(text.isEmpty()){
+			Toast.makeText(addActivity, "文字列が入力されていません", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		if(gesture==null){
 			addItem(text);
 		}else{
 			DatabaseManager dbManager = new DatabaseManager(addActivity);
 			dbManager.add(text, gesture);
+			Toast.makeText(addActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeAddActivity();
 		}
 		//Toast.makeText(addActivity, "addItem() called: "+text, Toast.LENGTH_LONG).show();
@@ -27,6 +32,7 @@ public class AddManager {
 	public void addItem(String text){
 		DatabaseManager dbManager = new DatabaseManager(addActivity);
 		dbManager.add(text);
+		Toast.makeText(addActivity, "登録しました", Toast.LENGTH_SHORT).show();
 		closeAddActivity();
 		//Toast.makeText(addActivity, "addItem() called: "+text, Toast.LENGTH_LONG).show();
 	}
@@ -36,7 +42,7 @@ public class AddManager {
 	}
 
 	public void startGestureInputActivity(){
-		addActivity.startActivityForResult(new Intent(addActivity,GestureInputAndReturnIntentActivity.class), AddManager.REQUESTCODE);//TODO MagicNumber
+		addActivity.startActivityForResult(new Intent(addActivity,GestureInputAndReturnIntentActivity.class), AddManager.REQUESTCODE);
 	}
 	
 	public void receiveGesture(Gesture gesture) {
