@@ -14,6 +14,10 @@ public class AddManager {
 	}
 	
 	public void addItem(String text, Gesture gesture){
+		if(text.isEmpty()){
+			Toast.makeText(addActivity, "文字列が入力されていません", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		if(gesture==null){
 			addItem(text);
 		}else{

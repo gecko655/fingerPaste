@@ -52,6 +52,17 @@ public class EditActivity extends Activity implements OnCheckedChangeListener, O
 		}
 
 	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+	}
+	
+	@Override
+	 public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		editManager.fillForm(editManager.getId());
+	 }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
