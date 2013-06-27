@@ -68,6 +68,13 @@ public class HomeManager {
 	}
 	
 	public void overrideClipboard(int id) {
+		ClipboardOperator co = new ClipboardOperator( homeActivity );
+		DatabaseManager dm = new DatabaseManager( homeActivity );
+		String text = dm.getText( id );
+		if( text != null ) {
+			co.setText( text );
+		}
+    	// TODO: TOAST表示
 	}
 	
 	public void startService() {
