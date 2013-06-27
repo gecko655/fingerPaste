@@ -39,8 +39,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     public void refresh() {
     	DatabaseManager dm = new DatabaseManager( context );
     	
+    	// ArrayListをクリア
     	clear();
 		
+    	// ArrayListに要素を詰める
     	int[] typeOfItems = dm.getElementsId();
     	if( typeOfItems != null ) {
 	    	for( int id = 0; id < DatabaseManager.MAX_ITEM; id++ ) {
@@ -64,6 +66,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 	    	}
     	}
     	
+    	// ArrayListをソートする
     	sort( new Comparator<Item>() {
 			@Override
 			public int compare( Item i1, Item i2 ) {
@@ -87,6 +90,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
+        	// Rowの設定
+        	// TODO: フォントサイズによってTextViewのサイズを変える
         	TextView tv = new TextView( context );
         	tv.setCompoundDrawablePadding( 12 );
         	tv.setPadding( 6, 0, 6, 0 );

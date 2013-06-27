@@ -16,6 +16,8 @@ public class FPService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		// DetectViewを作成
+		// 設置はコンストラクタ内で行なっている
 		view = new DetectView( this );
 		
 		return START_STICKY;

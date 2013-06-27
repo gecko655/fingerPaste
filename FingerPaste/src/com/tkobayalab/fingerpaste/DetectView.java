@@ -25,7 +25,9 @@ public class DetectView extends View implements View.OnTouchListener {
 	private Paint paint;
 	private Path path;
 	
+	// ドラッグ中のときtrue
 	private boolean isTouching;
+	
 	private PointF src, dest;
 
 	public DetectView( FPService service ) {
@@ -43,13 +45,16 @@ public class DetectView extends View implements View.OnTouchListener {
 		
 		this.paint = new Paint();
 		this.path = new Path();
-		
+
 		this.isTouching = false;
 
+		// DetectViewをOverlayに設置
 		WindowManager wm = (WindowManager) service.getSystemService(Context.WINDOW_SERVICE);
 		wm.addView( this, params );
 		
 		setOnTouchListener( this );
+		
+		// 背景を透明に
 		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
 	}
 
@@ -66,7 +71,7 @@ public class DetectView extends View implements View.OnTouchListener {
 			paint.setColor( Color.argb( 128, 0, 0, 0 ) );
 			canvas.drawCircle( src.x, src.y, getRadius(), paint );
 			
-			// Draw swipe strokes
+			// Draw swipe stroke
 			paint.setStrokeWidth( 5 );
 			if( canAccept() ) {
 				paint.setColor( Color.WHITE );
@@ -79,6 +84,7 @@ public class DetectView extends View implements View.OnTouchListener {
 	}
 	
 	private boolean canAccept() {
+		// swipeとみなすか否かを返す
 		PointF pt1 = src;
 		PointF pt2 = dest;
 		float dx = Math.abs( pt1.x - pt2.x );
@@ -108,10 +114,13 @@ public class DetectView extends View implements View.OnTouchListener {
 		params.width = WindowManager.LayoutParams.MATCH_PARENT;
 		params.height = WindowManager.LayoutParams.MATCH_PARENT;
 		updateLayout();
+		
+		// 背景をちょっと暗くする
 		setBackgroundColor( Color.argb( 128, 0, 0, 0 ) );
 		
 		src = new PointF( event.getRawX(), event.getRawY() );
 		dest = src;
+		
 		invalidate();
 		
 		return false;
@@ -119,7 +128,9 @@ public class DetectView extends View implements View.OnTouchListener {
 
 	private boolean onTouchMove(MotionEvent event) {
 		dest = new PointF( event.getRawX(), event.getRawY() );
+		
 		invalidate();
+		
 		return false;
 	}
 
@@ -131,8 +142,12 @@ public class DetectView extends View implements View.OnTouchListener {
 		params.width = VIEW_WIDTH;
 		params.height = getDetectHeight();
 		updateLayout();
+		
+		//　背景を黒くし直す
 		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
+		
 		invalidate();
+		
 		return true;
 	}
 	

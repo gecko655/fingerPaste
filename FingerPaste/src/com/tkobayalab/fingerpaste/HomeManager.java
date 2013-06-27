@@ -62,9 +62,11 @@ public class HomeManager {
 	}
 	
 	public void changeSortCondition(int type) {
+		// TODO: プレファレンスを変更する処理
 	}
 	
 	public void changeDisplayCondition(int type) {
+		// TODO: プレファレンスを変更する処理
 	}
 	
 	public void overwriteClipboard(int id) {
