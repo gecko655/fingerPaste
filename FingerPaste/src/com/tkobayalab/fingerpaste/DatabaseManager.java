@@ -151,8 +151,11 @@ public class DatabaseManager {
 		String sql = "select updatetime from textdb where _id =" + id + ";";
 		Cursor c = db.rawQuery(sql, null);
 		
-        int indexText  = c.getColumnIndex("text");
-        String text  = c.getString(indexText);
+        int indexText  = c.getColumnIndex("updatetime");
+        String text = "";
+        while(c.moveToNext()){
+        	text  = c.getString(indexText);
+        }
 		
 		return Long.parseLong(text);
 	}
