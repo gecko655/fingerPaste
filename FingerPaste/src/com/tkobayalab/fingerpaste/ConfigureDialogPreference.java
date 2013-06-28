@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +18,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class ConfigureDialogPreference extends DialogPreference {
+	private int id;
 
 	public ConfigureDialogPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init();
+		String alphabet = getKey();
+		if(alphabet.equals("ReservedGestureAlpha")){
+			id = ConfigureActivity.alpha;
+		}else if(alphabet.equals("ReservedGestureBeta")){
+			id = ConfigureActivity.beta;
+		}else if(alphabet.equals("ReservedGestureGamma")){
+			id = ConfigureActivity.gamma;
+		}
 	}
 
-	private void init() {
-	}
 	@Override
 	protected void onPrepareDialogBuilder(AlertDialog.Builder builder){
 		final LayoutInflater inflater = (LayoutInflater)
@@ -43,6 +50,9 @@ public class ConfigureDialogPreference extends DialogPreference {
 	}
 	@Override
 	protected void onDialogClosed(boolean positiveResult){
+		if(positiveResult){
+			((ConfigureActivity)getContext()).startGestureActivity(id);
+		}
 	}
 
 }
