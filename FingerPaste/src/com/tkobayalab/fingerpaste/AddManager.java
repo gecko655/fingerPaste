@@ -22,6 +22,11 @@ public class AddManager {
 			addItem(text);
 		}else{
 			DatabaseManager dbManager = new DatabaseManager(addActivity);
+			if(dbManager.hasSimilarItem(gesture)){
+				String similar = dbManager.getText(dbManager.getIdOfMaxScore(gesture));
+				Toast.makeText(addActivity, "警告：\n登録されたジェスチャーは、すでに登録されているジェスチャー\n「"+similar+"」\nに似ています", Toast.LENGTH_LONG).show();
+				
+			}
 			dbManager.add(text, gesture);
 			Toast.makeText(addActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeAddActivity();

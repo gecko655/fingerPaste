@@ -25,8 +25,11 @@ public class EditManager {
 			editItem(text);
 		}else{
 			DatabaseManager dbManager = new DatabaseManager(editActivity);
-			dbManager.delete(id);
-			dbManager.add(text, gesture);
+			if(dbManager.hasSimilarItem(gesture)){
+				String similar = dbManager.getText(dbManager.getIdOfMaxScore(gesture));
+				Toast.makeText(editActivity, "警告：\n登録されたジェスチャーは、すでに登録されているジェスチャー\n「"+similar+"」\nに似ています", Toast.LENGTH_LONG).show();
+			}
+			dbManager.edit(id,text, gesture);
 			Toast.makeText(editActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeEditActivity();
 		}
@@ -34,8 +37,7 @@ public class EditManager {
 
 	public void editItem(String text){
 			DatabaseManager dbManager = new DatabaseManager(editActivity);
-			dbManager.delete(id);
-			dbManager.add(text);
+			dbManager.edit(id,text);
 			Toast.makeText(editActivity, "登録しました", Toast.LENGTH_SHORT).show();
 			closeEditActivity();
 	}

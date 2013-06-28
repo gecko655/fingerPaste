@@ -45,11 +45,18 @@ public class GestureInputAndTransitionManager {
 	}
 
 	private void addItem(){
-		ClipboardOperator co = new ClipboardOperator(gITActivity);
 		DatabaseManager dbManager = new DatabaseManager(gITActivity);
+		if(dbManager.canAddItem()){
+			Toast.makeText(gITActivity, 
+					"登録されているアイテム数が"+dbManager.MAX_ITEM+"を超えているため登録出来ません。ホーム画面へ遷移します。",
+					Toast.LENGTH_LONG).show();
+			startHomeActivity();
+			return;
+		}
+		ClipboardOperator co = new ClipboardOperator(gITActivity);
 		String text = co.getText();
 		dbManager.add(text);
-		Toast.makeText(gITActivity, text +"を登録しました。", Toast.LENGTH_SHORT).show();
+		Toast.makeText(gITActivity, text +"\nを登録しました。", Toast.LENGTH_SHORT).show();
 		gITActivity.finish();
 		
 	}
@@ -59,7 +66,7 @@ public class GestureInputAndTransitionManager {
 		DatabaseManager dbManager = new DatabaseManager(gITActivity);
 		String text = dbManager.getText(id);
 		co.setText(text);
-		Toast.makeText(gITActivity, "クリップボードに"+text+"をコピーしました。", Toast.LENGTH_SHORT).show();
+		Toast.makeText(gITActivity, "クリップボードに\n"+text+"\nをコピーしました。", Toast.LENGTH_SHORT).show();
 		gITActivity.finish();
 	}
 
