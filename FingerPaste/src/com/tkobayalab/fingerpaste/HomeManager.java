@@ -76,9 +76,9 @@ public class HomeManager {
 		int sort1 = pref.getInt( "Sort1", SortType.TYPE_SORT1_DATE );
 		int sort2 = pref.getInt( "Sort2", SortType.TYPE_SORT2_DECS );
 		if( type == 0 ) {
-			sort1 = SortType.TYPE_SORT1_ALPHABET;
-		} else if( type == 1 ) {
 			sort1 = SortType.TYPE_SORT1_DATE;
+		} else if( type == 1 ) {
+			sort1 = SortType.TYPE_SORT1_ALPHABET;
 		} else if( type == 2 ) {
 			sort2 = SortType.TYPE_SORT2_ACS;
 		} else if( type == 3 ) {
