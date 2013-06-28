@@ -39,8 +39,11 @@ public class DatabaseManager {
 		
 		if(id == alphaID || id == betaID || id == gammaID) return;
 		db.delete("textdb", "_id =" + id, null);
+		Log.d("myTest", "deleated text id is " + id);
+		// Log.d("myTest", "" + GestureLibraryManager.isGestureOfThisId(id));
 		if(GestureLibraryManager.isGestureOfThisId(id)){
 			GestureLibraryManager.deleteGesture("" + id);
+			Log.d("myTest", "deleated gesture id is " + id);
 		}
 	}
 	
@@ -70,6 +73,8 @@ public class DatabaseManager {
         	
 		db.insert("textdb", null, val);
 		GestureLibraryManager.addGesture("" + id, gesture);
+		
+		Log.d("myTest","added id is " + id);
 	}
 	
 	public void add(String text){
@@ -83,6 +88,7 @@ public class DatabaseManager {
         val.put("updatetime", date.getTime());
         
         db.insert("textdb", null, val);
+        Log.d("myTest","added id is " + id);
 	}
 	
 	public void edit(int id, String text){
@@ -246,7 +252,7 @@ public class DatabaseManager {
     	}
 		
     	String[] gestureid = GestureLibraryManager.getGestureEntrys();
-    	Log.d("myTest", "" + gestureid.length);
+    	Log.d("myTest", "GestureEntrysLength is " + gestureid.length);
     	for(int i = 0; i < gestureid.length; i++){
     		if(Integer.parseInt(gestureid[i]) == alphaID) continue;
     		if(Integer.parseInt(gestureid[i]) == betaID) continue;
@@ -254,10 +260,18 @@ public class DatabaseManager {
     		typeOfItems[Integer.parseInt(gestureid[i])]++; // when gesture of this id exists
     	}
     	
+    	for(int i = 0; i < 100; i++){
+    		Log.d("myTest", "id " + i + " has type " + typeOfItems[i]);
+    	}
     	
 		return typeOfItems;
 	}
 	
+	
+	public boolean canAddItem(){
+		if(getNextId() == -1) return false;
+		return true;
+	}
 	
 	
     // not put in class diagram

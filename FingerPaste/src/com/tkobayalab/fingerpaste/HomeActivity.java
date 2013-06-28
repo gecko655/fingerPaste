@@ -49,8 +49,22 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 			SharedPreferences.Editor editor = pref.edit();
 			editor.putBoolean( "Fisrt", false );
 			editor.commit();
+			Log.d("myTest", "initial gestureDB.");
         }
         
+	}
+	/*
+	@Override
+	protected void onStart(){
+		super.onStart();
+		GestureLibraryManager.saveGestures();
+	}
+	*/
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		GestureLibraryManager.saveGestures();
 	}
 	
 	@Override
