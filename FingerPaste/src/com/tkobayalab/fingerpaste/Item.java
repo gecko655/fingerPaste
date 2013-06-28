@@ -6,10 +6,12 @@ public class Item {
 	private int id;
 	private String text;
 	private Bitmap img;
-	public Item( int id, String text, Bitmap img ) {
+	private long date;
+	public Item( int id, String text, Bitmap img, long date ) {
 		this.id = id;
 		this.text = text;
 		this.img = img;
+		this.date = date;
 	}
 	public int getId() {
 		return id;
@@ -19,5 +21,8 @@ public class Item {
 	}
 	public Bitmap getBitmap() {
 		return img;
+	}
+	public long getDate() {
+		return date;
 	}
 }

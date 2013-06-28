@@ -1,8 +1,10 @@
 package com.tkobayalab.fingerpaste;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 public class HomeManager {
 	private HomeActivity homeActivity;
@@ -62,11 +64,41 @@ public class HomeManager {
 	}
 	
 	public void changeSortCondition(int type) {
-		// TODO: プレファレンスを変更する処理
+		// プレファレンスを変更する
+		SharedPreferences pref = homeActivity.getSharedPreferences( "FingerPaste", Activity.MODE_PRIVATE );
+		int sort1 = pref.getInt( "Sort1", SortType.TYPE_SORT1_DATE );
+		int sort2 = pref.getInt( "Sort2", SortType.TYPE_SORT2_DECS );
+		if( type == 0 ) {
+			sort1 = SortType.TYPE_SORT1_ALPHABET;
+		} else if( type == 1 ) {
+			sort1 = SortType.TYPE_SORT1_DATE;
+		} else if( type == 2 ) {
+			sort2 = SortType.TYPE_SORT2_ACS;
+		} else if( type == 3 ) {
+			sort2 = SortType.TYPE_SORT2_DECS;
+		}
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putInt( "Sort1", sort1 );
+		editor.putInt( "Sort2", sort2 );
+		editor.commit();
+		
+    	homeActivity.refreshUI();
 	}
 	
 	public void changeDisplayCondition(int type) {
-		// TODO: プレファレンスを変更する処理
+		// プレファレンスを変更する
+		SharedPreferences pref = homeActivity.getSharedPreferences( "FingerPaste", Activity.MODE_PRIVATE );
+		int display = pref.getInt( "Display", DisplayType.TYPE_DISPLAY_ALL );
+		if( type == 0 ) {
+			display = DisplayType.TYPE_DISPLAY_ALL;
+		} else if( type == 1 ) {
+			display = DisplayType.TYPE_DISPLAY_GESTURE;
+		}
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putInt( "Display", display );
+		editor.commit();
+		
+    	homeActivity.refreshUI();
 	}
 	
 	public void overwriteClipboard(int id) {

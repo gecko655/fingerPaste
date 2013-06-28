@@ -3,6 +3,7 @@ package com.tkobayalab.fingerpaste;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class HomeActivity extends Activity implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
-	
+
+	private static final String PREF_KEY = "FingerPaste";
+
 	private HomeManager homeManager;
 	private ItemAdapter adapter;
 	private Menu menu;
@@ -35,10 +38,18 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
         
         menu = null;
         
-        // TODO: 初回起動時の処理
-        // if( ) {
-        // homeManager.initiateDatabase();
-        // }
+        // 初回起動時の処理
+        SharedPreferences pref = getSharedPreferences(PREF_KEY, Activity.MODE_PRIVATE);
+		boolean bFirst = pref.getBoolean( "First", true );
+		if( bFirst == true ) {
+			// データベースの初期化
+			homeManager.initiateDatabase();
+
+			// 初回起動フラグを折る
+			SharedPreferences.Editor editor = pref.edit();
+			editor.putBoolean( "Fisrt", false );
+			editor.commit();
+        }
         
 	}
 	
@@ -46,6 +57,14 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 	protected void onResume() {
 		super.onResume();
 		homeManager.startService();
+		
+		// ソート順の初期化
+        SharedPreferences pref = getSharedPreferences(PREF_KEY, Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putInt( "Sort1", SortType.TYPE_SORT1_DATE );
+		editor.putInt( "Sort2", SortType.TYPE_SORT2_DECS );
+		editor.commit();
+
     	refreshUI();
 	}
 
@@ -87,18 +106,23 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
 		case R.id.action_delete_all:
 			homeManager.deleteAllItems();
 			return true;
-		// TODO: ソートボタン、書き換えボタン
 		case R.id.action_sort_1_1:
+			homeManager.changeSortCondition( 0 );
 			return true;
 		case R.id.action_sort_1_2:
+			homeManager.changeSortCondition( 1 );
 			return true;
 		case R.id.action_sort_2_1:
+			homeManager.changeSortCondition( 2 );
 			return true;
 		case R.id.action_sort_2_2:
+			homeManager.changeSortCondition( 3 );
 			return true;
 		case R.id.action_filter_1:
+			homeManager.changeDisplayCondition( 0 );
 			return true;
 		case R.id.action_filter_2:
+			homeManager.changeDisplayCondition( 1 );
 			return true;
 		}
 		return true;

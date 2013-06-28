@@ -3,7 +3,9 @@ package com.tkobayalab.fingerpaste;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -39,6 +41,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     public void refresh() {
     	DatabaseManager dm = new DatabaseManager( context );
     	
+    	// Preferenceを取得
+		SharedPreferences pref = context.getSharedPreferences( "FingerPaste", Activity.MODE_PRIVATE );
+		final int sort1 = pref.getInt( "Sort1", SortType.TYPE_SORT1_DATE );
+		final int sort2 = pref.getInt( "Sort2", SortType.TYPE_SORT2_DECS );
+		final int display = pref.getInt( "Display", DisplayType.TYPE_DISPLAY_ALL );
+    	
     	// ArrayListをクリア
     	clear();
 		
@@ -48,20 +56,17 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 	    	for( int id = 0; id < DatabaseManager.MAX_ITEM; id++ ) {
 	    		String text;
 	    		Bitmap img;
-	    		// TODO: Preferenceの「表示切替」を見てaddするかそうでないかを決める
-	    		// TODO: Dateの実装
-	    		switch( typeOfItems[id] ) {
-	    		case DatabaseManager.TYPE_NO_GESTURE:
+	    		long date;
+	    		// Preferenceの「表示切替」を見てaddするかそうでないかを決める
+	    		if( display != DisplayType.TYPE_DISPLAY_GESTURE && typeOfItems[id] == DatabaseManager.TYPE_NO_GESTURE ) {
 		    		text = dm.getText( id );
-		    		add( new Item( id, text, null ) );
-		    		break;
-	    		case DatabaseManager.TYPE_HAS_GESTURE:
+		    		date = dm.getUpdateTime( id );
+		    		add( new Item( id, text, null, date ) );
+	    		} else if( typeOfItems[id] == DatabaseManager.TYPE_HAS_GESTURE ) {
 		    		text = dm.getText( id );
+		    		date = dm.getUpdateTime( id );
 		    		img = Bitmap.createScaledBitmap( dm.getGestureImage( id ), 60, 60, false );
-		    		add( new Item( id, text, img ) );
-		    		break;
-		    	default:
-		    		break;
+		    		add( new Item( id, text, img, date ) );
 	    		}
 	    	}
     	}
@@ -70,13 +75,21 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     	sort( new Comparator<Item>() {
 			@Override
 			public int compare( Item i1, Item i2 ) {
-				// TODO: Preferenceの「ソート」を見てソート順を決める
-				switch( 0 ) {
-				case 0:
-					return + i1.getText().compareTo( i2.getText() );
-				default:
-					return - i1.getText().compareTo( i2.getText() );
+				// Preferenceの「ソート」を見てソート順を決める
+				if( sort1 == SortType.TYPE_SORT1_ALPHABET ) {
+					if( sort2 == SortType.TYPE_SORT2_ACS ) {
+						return + i1.getText().compareTo( i2.getText() );
+					} else if( sort2 == SortType.TYPE_SORT2_DECS ) {
+						return - i1.getText().compareTo( i2.getText() );
+					}
+				} else if( sort1 == SortType.TYPE_SORT1_DATE ) {
+					if( sort2 == SortType.TYPE_SORT2_ACS ) {
+						return + Long.signum( i1.getDate() - i2.getDate() );
+					} else if( sort2 == SortType.TYPE_SORT2_DECS ) {
+						return - Long.signum( i1.getDate() - i2.getDate() );
+					}
 				}
+				return 0;
 			}
     	});
 
