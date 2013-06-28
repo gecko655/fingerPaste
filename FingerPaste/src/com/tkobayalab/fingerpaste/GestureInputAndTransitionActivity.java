@@ -12,13 +12,6 @@ public class GestureInputAndTransitionActivity extends AbstractGestureInputActiv
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.gesture_input_and_transition, menu);
-		return true;
-	}
-
-	@Override
 	void onGestureInput(Gesture gesture) {
 		GestureInputAndTransitionManager gITManager = new GestureInputAndTransitionManager(this);
 		gITManager.recognize(gesture);
