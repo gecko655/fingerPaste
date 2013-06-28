@@ -41,13 +41,14 @@ public class HomeActivity extends Activity implements AdapterView.OnItemLongClic
         // 初回起動時の処理
         SharedPreferences pref = getSharedPreferences(PREF_KEY, Activity.MODE_PRIVATE);
 		boolean bFirst = pref.getBoolean( "First", true );
+		Log.d("myTest", bFirst ? "true" : "false");
 		if( bFirst == true ) {
 			// データベースの初期化
 			homeManager.initiateDatabase();
-
+			
 			// 初回起動フラグを折る
 			SharedPreferences.Editor editor = pref.edit();
-			editor.putBoolean( "Fisrt", false );
+			editor.putBoolean( "First", false );
 			editor.commit();
         }
         
