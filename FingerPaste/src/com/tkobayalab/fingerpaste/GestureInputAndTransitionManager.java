@@ -37,9 +37,23 @@ public class GestureInputAndTransitionManager {
 	}
 
 	private void startAddActivity(){
+		DatabaseManager dbManager = new DatabaseManager(gITActivity);
+		if(dbManager.canAddItem()){
+			Toast.makeText(gITActivity, 
+					"登録されているアイテム数が"+dbManager.MAX_ITEM+"を超えているため登録出来ません。ホーム画面へ遷移します。",
+					Toast.LENGTH_LONG).show();
+			gITActivity.finish();
+			return;
+		}
 		ClipboardOperator co = new ClipboardOperator(gITActivity);
+		String text = co.getText();
+		if(text==null||text.equals("")){
+			Toast.makeText(gITActivity, "クリップボードに文字列が入っていません。", Toast.LENGTH_SHORT).show();
+			gITActivity.finish();
+			return;
+		}
 		Intent intent = new Intent(gITActivity,AddActivity.class);
-		intent.putExtra("text", co.getText());
+		intent.putExtra("text", text);
 		gITActivity.startActivity(intent);
 		gITActivity.finish();
 	}
@@ -50,11 +64,16 @@ public class GestureInputAndTransitionManager {
 			Toast.makeText(gITActivity, 
 					"登録されているアイテム数が"+dbManager.MAX_ITEM+"を超えているため登録出来ません。ホーム画面へ遷移します。",
 					Toast.LENGTH_LONG).show();
-			startHomeActivity();
+			gITActivity.finish();
 			return;
 		}
 		ClipboardOperator co = new ClipboardOperator(gITActivity);
 		String text = co.getText();
+		if(text==null||text.equals("")){
+			Toast.makeText(gITActivity, "クリップボードに文字列が入っていません。", Toast.LENGTH_SHORT).show();
+			gITActivity.finish();
+			return;
+		}
 		dbManager.add(text);
 		Toast.makeText(gITActivity, text +"\nを登録しました。", Toast.LENGTH_SHORT).show();
 		gITActivity.finish();
