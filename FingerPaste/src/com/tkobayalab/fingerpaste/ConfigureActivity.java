@@ -22,9 +22,9 @@ import android.widget.Toast;
 
 public class ConfigureActivity extends Activity implements OnSharedPreferenceChangeListener {
 	
-	public static final int alpha = -999;
-	public static final int beta = -888;
-	public static final int gamma = -777;
+	public static final int alpha = 999;
+	public static final int beta = 888;
+	public static final int gamma = 777;
 	private static final String PREF_KEY = "FingerPaste";
 
 	private SharedPreferences pref;
@@ -93,17 +93,18 @@ public class ConfigureActivity extends Activity implements OnSharedPreferenceCha
 	@Override
 	public void onActivityResult(int requestCode,int resultCode,Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
-		Log.d("test","I'm here!");
-				Toast.makeText(this, "予約ジェスチャーαを変更しました。", Toast.LENGTH_LONG).show();
 		if(resultCode==AbstractGestureInputActivity.SUCCESS){
 			Gesture gesture = ((Gesture)data.getExtras().getParcelable("Gesture"));
 			DatabaseManager dbManager = new DatabaseManager(this);
 			if(requestCode==alpha){
 				dbManager.changeAlpha(gesture);
+				Toast.makeText(this, "予約ジェスチャーαを変更しました。", Toast.LENGTH_LONG).show();
 			}else if(requestCode==beta){
 				dbManager.changeBeta(gesture);
+				Toast.makeText(this, "予約ジェスチャーβを変更しました。", Toast.LENGTH_LONG).show();
 			}else if(requestCode==gamma){
 				dbManager.changeGamma(gesture);
+				Toast.makeText(this, "予約ジェスチャーγを変更しました。", Toast.LENGTH_LONG).show();
 			}
 		}
 	}

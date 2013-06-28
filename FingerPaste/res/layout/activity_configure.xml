@@ -28,10 +28,10 @@
 	   <com.tkobayalab.fingerpaste.ConfigureDialogPreference
 	     android:key="ReservedGestureAlpha"
 	     android:title="予約ジェスチャーα" />
-	   <Preference
+	   <com.tkobayalab.fingerpaste.ConfigureDialogPreference
 	     android:key="ReservedGestureBeta"
 	     android:title="予約ジェスチャーβ" />
-	   <Preference
+	   <com.tkobayalab.fingerpaste.ConfigureDialogPreference
 	     android:key="ReservedGestureGamma"
 	     android:title="予約ジェスチャーγ" />
    </PreferenceCategory>
