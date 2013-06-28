@@ -132,10 +132,11 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         
         Bitmap bmp = item.getBitmap();
         if( bmp != null ) {
-        	label.setCompoundDrawablesWithIntrinsicBounds( new BitmapDrawable(context.getResources(),bmp),null, null, null );
+        	label.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(context.getResources(),bmp),null, null, null );
         } else {
         	// TODO: NO IMAGEの画像
         	//label.setCompoundDrawablesWithIntrinsicBounds( new BitmapDrawable(context.getResources(),bmp),null, null, null );
+        	label.setCompoundDrawablesWithIntrinsicBounds( null,null, null, null );
         }
         
         return convertView;

@@ -1,5 +1,6 @@
 package com.tkobayalab.fingerpaste;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -18,24 +19,31 @@ import android.content.res.AssetManager;
 public class GestureLibraryManager {
 	static private GestureStore gestures;
 	final static private String pathToGestureDB = "/data/data/com.tkobayalab.fingerpaste/databases/gesturedb";
-	final static private String pathToInitialGestureDB = "/assets/init_gesturedb";
+	
 	
 	static {
 		gestures = new GestureStore();
+		FileInputStream fis;
 		try{
-    		gestures.load(new FileInputStream(pathToGestureDB));
+			//FileInputStream fis = new FileInputStream(pathToGestureDB);
+			fis = new FileInputStream(pathToGestureDB);
+			gestures.load(fis);
+			fis.close();
+    		Log.d("myTest", "successed load gesturedb.");
     	} catch (IOException e){
-    		Log.d("myTest", "initialerror");
+    		Log.d("myTest", "failed load gesturedb.");
     	}
-		
-		Log.d("myTest", "create gestures.");
 	}
 	
 	static public boolean saveGestures(){
     	try{
-    		gestures.save(new FileOutputStream(pathToGestureDB));
+    		FileOutputStream fos = new FileOutputStream(pathToGestureDB ,true);
+    		gestures.save(fos);
+    		fos.close();
+    		Log.d("myTest", "successed save gesturedb.");
     	} catch (IOException e){
-    		Log.d("myTest", "save error");
+    		Log.d("myTest",e.toString());
+    		Log.d("myTest", "failed save gesturedb.");
     		return false;
     	}
     	
@@ -71,14 +79,21 @@ public class GestureLibraryManager {
 	}
 	
 	static public void initializeGestures(Resources res){
+		File fl = new File("/data/data/com.tkobayalab.fingerpaste/databases/", "gesturedb");
 		try{
 			AssetManager as = res.getAssets();   
 			InputStream is = as.open("init_gesturedb");  
 			gestures.load(is);
-			saveGestures();
 		} catch(IOException e){
 			Log.d("myTest", "failed initialization.");
 		}
+		try{
+			fl.createNewFile();
+		} catch(IOException e){
+			Log.d("myTest",e.toString());
+			Log.d("myTest", "failed create gesturedb.");
+		}
+		saveGestures();
 	}
 	
 	static public boolean isGestureOfThisId(int id){
