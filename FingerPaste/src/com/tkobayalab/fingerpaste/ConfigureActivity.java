@@ -20,8 +20,11 @@ import android.view.Menu;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class ConfigureActivity extends Activity implements OnPreferenceClickListener, OnSharedPreferenceChangeListener {
+public class ConfigureActivity extends Activity implements OnSharedPreferenceChangeListener {
 	
+	public static final int alpha = 999;
+	public static final int beta = 888;
+	public static final int gamma = 777;
 	private static final String PREF_KEY = "FingerPaste";
 
 	private SharedPreferences pref;
@@ -49,7 +52,7 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 	        prefManager.setSharedPreferencesName(PREF_KEY);
 			PreferenceCategory prefCategory  = (PreferenceCategory) this.findPreference("ReservedGesture");
 			for(int i=0;i<prefCategory.getPreferenceCount();i++){
-				prefCategory.getPreference(i).setOnPreferenceClickListener((ConfigureActivity)getActivity());
+//				prefCategory.getPreference(i).setOnPreferenceClickListener((ConfigureActivity)getActivity());
 			}
 
 		}
@@ -62,7 +65,19 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 		return true;
 	}
 
-	public boolean onPreferenceClick(Preference preference) {
+	public void startGestureActivity(int alphabet) {
+		if(alphabet==alpha){
+			Log.d("test","alpha");
+			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), alpha);
+		}else if(alphabet==beta){
+			Log.d("test","beta");
+			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), beta);
+		}else if(alphabet==gamma){
+			Log.d("test","gamma");
+			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), gamma);
+		}
+	}
+	/*public boolean onPreferenceClick(Preference preference) {
 		if(preference.getKey().equals("ReservedGestureAlpha")){
 			Log.d("test","alpha");
 			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), 0);
@@ -74,19 +89,22 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 			startActivityForResult(new Intent(this, GestureInputAndReturnIntentActivity.class), 2);//TODO HardCoded
 		}
 		return false;
-	}
+	}*/
 	@Override
 	public void onActivityResult(int requestCode,int resultCode,Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode==AbstractGestureInputActivity.SUCCESS){
 			Gesture gesture = ((Gesture)data.getExtras().getParcelable("Gesture"));
 			DatabaseManager dbManager = new DatabaseManager(this);
-			if(requestCode==0){
+			if(requestCode==alpha){
 				dbManager.changeAlpha(gesture);
-			}else if(requestCode==1){
+				Toast.makeText(this, "予約ジェスチャーαを変更しました。", Toast.LENGTH_LONG).show();
+			}else if(requestCode==beta){
 				dbManager.changeBeta(gesture);
-			}else if(requestCode==2){
+				Toast.makeText(this, "予約ジェスチャーβを変更しました。", Toast.LENGTH_LONG).show();
+			}else if(requestCode==gamma){
 				dbManager.changeGamma(gesture);
+				Toast.makeText(this, "予約ジェスチャーγを変更しました。", Toast.LENGTH_LONG).show();
 			}
 		}
 	}
