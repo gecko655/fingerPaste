@@ -65,7 +65,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 	    		} else if( typeOfItems[id] == DatabaseManager.TYPE_HAS_GESTURE ) {
 		    		text = dm.getText( id );
 		    		date = dm.getUpdateTime( id );
-		    		img = Bitmap.createScaledBitmap( dm.getGestureImage( id ), 60, 60, false );
+		    		img = dm.getGestureImage( id, 60, 60, 8, 0xFFFFFF00 );
 		    		add( new Item( id, text, img, date ) );
 	    		}
 	    	}
