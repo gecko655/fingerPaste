@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 public class HomeManager {
 	private HomeActivity homeActivity;
@@ -31,9 +32,13 @@ public class HomeManager {
 	
 	public void deleteItem(int id) {
     	DatabaseManager dm = new DatabaseManager( homeActivity );
+		String text = dm.getText( id );
     	dm.delete( id );
     	homeActivity.refreshUI();
-    	// TODO: TOAST表示
+		if( text != null ) {
+	    	// TOAST表示
+			Toast.makeText( homeActivity, "アイテム\n"+text +"\nを削除しました。", Toast.LENGTH_SHORT ).show();
+		}
 	}
 	
 	public void deleteAllItems() {
@@ -49,6 +54,8 @@ public class HomeManager {
                 	DatabaseManager dm = new DatabaseManager( homeActivity );
                 	dm.deleteAllItem();
                 	homeActivity.refreshUI();
+        	    	// TOAST表示
+        			Toast.makeText( homeActivity, "すべてのアイテムを削除しました。", Toast.LENGTH_SHORT ).show();
                 }
             });
         alertDlg.setNegativeButton(
@@ -107,8 +114,9 @@ public class HomeManager {
 		String text = dm.getText( id );
 		if( text != null ) {
 			co.setText( text );
+	    	// TOAST表示
+			Toast.makeText( homeActivity, "クリップボードに\n"+text+"\nをコピーしました。", Toast.LENGTH_SHORT ).show();
 		}
-    	// TODO: TOAST表示
 	}
 	
 	public void startService() {
