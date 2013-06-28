@@ -1,6 +1,10 @@
 package com.tkobayalab.fingerpaste;
 
+import java.util.prefs.Preferences;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,7 +19,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 
-public class DetectView extends View implements View.OnTouchListener {
+public class DetectView extends View implements View.OnTouchListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
 	private static final int VIEW_WIDTH = 4;
 
@@ -56,6 +60,10 @@ public class DetectView extends View implements View.OnTouchListener {
 		
 		// 背景を透明に
 		setBackgroundColor( Color.argb( 0, 0, 0, 0 ) );
+		
+		// スワイプ基点の設定変更されたら即対応する
+		SharedPreferences pref = service.getSharedPreferences( "FingerPaste", Activity.MODE_PRIVATE );
+		pref.registerOnSharedPreferenceChangeListener( this );
 	}
 
 	@Override
@@ -158,18 +166,19 @@ public class DetectView extends View implements View.OnTouchListener {
 	}
 	
 	private int getGravity() {
-		// TODO: Preferenceに対応させる
-		switch( 3 ) {
-		case 0:
+		// Preferenceに対応
+		SharedPreferences pref = service.getSharedPreferences( "FingerPaste", Activity.MODE_PRIVATE );
+		String origin = pref.getString( "OriginOfSwipe", "null" );
+		if( origin.equals( "left_top") ) {
 			return Gravity.LEFT | Gravity.TOP;
-		case 1:
+		} else if( origin.equals( "right_top") ) {
 			return Gravity.RIGHT | Gravity.TOP;
-		case 2:
+		} else if( origin.equals( "left_bottom") ) {
 			return Gravity.LEFT | Gravity.BOTTOM;
-		case 3:
+		} else if( origin.equals( "right_bottom") ) {
 			return Gravity.RIGHT | Gravity.BOTTOM;
 		}
-		return Gravity.LEFT | Gravity.TOP;
+		return Gravity.RIGHT | Gravity.TOP;
 	}
 
 	private int getDetectHeight() {
@@ -186,5 +195,14 @@ public class DetectView extends View implements View.OnTouchListener {
 		Point point = new Point();
 		display.getSize( point );  
 		return Math.min( point.x, point.y ) / 4 + 1;
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,String key) {
+		if(key.equals("OriginOfSwipe")){
+			// スワイプ基点の設定変更された時
+			params.gravity = getGravity();
+			updateLayout();
+		}
 	}
 }
