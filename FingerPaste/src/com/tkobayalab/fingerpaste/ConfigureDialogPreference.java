@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -40,6 +41,8 @@ public class ConfigureDialogPreference extends DialogPreference {
         
         imageView.setImageBitmap(dbManager.getGestureImage(dbManager.alphaID,(int)(p.x*0.8),(int)(p.x*0.8),8,0xffff0000));
 	}
-	
+	@Override
+	protected void onDialogClosed(boolean positiveResult){
+	}
 
 }
