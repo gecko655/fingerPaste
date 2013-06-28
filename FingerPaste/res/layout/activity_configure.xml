@@ -25,7 +25,7 @@
    <PreferenceCategory
         android:key="ReservedGesture"
         android:title="予約ジェスチャーを変更">
-	   <Preference
+	   <com.tkobayalab.fingerpaste.ConfigureDialogPreference
 	     android:key="ReservedGestureAlpha"
 	     android:title="予約ジェスチャーα" />
 	   <Preference

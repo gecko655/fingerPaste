@@ -49,7 +49,7 @@ public class ConfigureActivity extends Activity implements OnPreferenceClickList
 	        prefManager.setSharedPreferencesName(PREF_KEY);
 			PreferenceCategory prefCategory  = (PreferenceCategory) this.findPreference("ReservedGesture");
 			for(int i=0;i<prefCategory.getPreferenceCount();i++){
-				prefCategory.getPreference(i).setOnPreferenceClickListener((ConfigureActivity)getActivity());
+//				prefCategory.getPreference(i).setOnPreferenceClickListener((ConfigureActivity)getActivity());
 			}
 
 		}
