@@ -27,9 +27,9 @@
         <item>右下</item>
     </string-array>
     <string-array name="originOfSwipeValues">
-        <item>left_up</item>
-        <item>right_up</item>
-        <item>left_down</item>
-        <item>right_down</item>
+        <item>left_top</item>
+        <item>right_top</item>
+        <item>left_bottom</item>
+        <item>right_bottom</item>
     </string-array>
 </resources>
