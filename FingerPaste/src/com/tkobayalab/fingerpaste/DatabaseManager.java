@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -309,6 +310,14 @@ public class DatabaseManager {
         }
         
         return -1;
+    }
+    
+    public void initiateDatabase(Resources res){
+    	deleteAllItem();
+    	GestureLibraryManager.deleteGesture("" + alphaID);
+    	GestureLibraryManager.deleteGesture("" + betaID);
+    	GestureLibraryManager.deleteGesture("" + gammaID);
+    	GestureLibraryManager.initializeGestures(res);
     }
     
 	public class DatabaseOpenHelper extends SQLiteOpenHelper {

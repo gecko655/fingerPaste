@@ -124,7 +124,8 @@ public class HomeManager {
 	}
 	
 	public void initiateDatabase() {
-		GestureLibraryManager.initializeGestures( homeActivity.getResources() );
+		DatabaseManager dm = new DatabaseManager( homeActivity );
+		dm.initiateDatabase( homeActivity.getResources() );
 	}
 	
 }
