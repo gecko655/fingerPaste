@@ -37,12 +37,11 @@ public class GestureLibraryManager {
 	
 	static public boolean saveGestures(){
     	try{
-    		FileOutputStream fos = new FileOutputStream(pathToGestureDB ,true);
+    		FileOutputStream fos = new FileOutputStream(pathToGestureDB);
     		gestures.save(fos);
     		fos.close();
     		Log.d("myTest", "successed save gesturedb.");
     	} catch (IOException e){
-    		Log.d("myTest",e.toString());
     		Log.d("myTest", "failed save gesturedb.");
     		return false;
     	}
@@ -79,19 +78,13 @@ public class GestureLibraryManager {
 	}
 	
 	static public void initializeGestures(Resources res){
-		File fl = new File("/data/data/com.tkobayalab.fingerpaste/databases/", "gesturedb");
 		try{
 			AssetManager as = res.getAssets();   
 			InputStream is = as.open("init_gesturedb");  
 			gestures.load(is);
+			Log.d("myTest", "successed initialization");
 		} catch(IOException e){
 			Log.d("myTest", "failed initialization.");
-		}
-		try{
-			fl.createNewFile();
-		} catch(IOException e){
-			Log.d("myTest",e.toString());
-			Log.d("myTest", "failed create gesturedb.");
 		}
 		saveGestures();
 	}
