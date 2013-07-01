@@ -50,7 +50,7 @@ public class ConfigureDialogPreference extends DialogPreference {
         Point p = new Point();
         display.getSize(p);
         
-        imageView.setImageBitmap(dbManager.getGestureImage(dbManager.alphaID,(int)(p.x*0.8),(int)(p.x*0.8),8,0xffff0000));
+        imageView.setImageBitmap(dbManager.getGestureImage(-id,(int)(p.x*0.8),(int)(p.x*0.8),8,0xffff0000));
 	}
 	@Override
 	protected void onDialogClosed(boolean positiveResult){
